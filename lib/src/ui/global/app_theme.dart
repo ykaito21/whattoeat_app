@@ -10,8 +10,9 @@ final appThemes = {
   AppTheme.Light: ThemeData().copyWith(
     primaryColor: ColorList.primaryCream,
     accentColor: ColorList.primaryOrange,
-    scaffoldBackgroundColor: ColorList.primaryCream,
+    scaffoldBackgroundColor: Colors.grey[50],
     appBarTheme: AppBarTheme(
+      color: Colors.grey[50],
       textTheme: TextTheme(
         title: TextStyle(
           color: ColorList.primaryOrange,
@@ -26,8 +27,9 @@ final appThemes = {
   AppTheme.Dark: ThemeData.dark().copyWith(
     primaryColor: ColorList.primaryBlue,
     accentColor: ColorList.primaryCream,
-    scaffoldBackgroundColor: ColorList.primaryBlue,
+    scaffoldBackgroundColor: Colors.grey[850],
     appBarTheme: AppBarTheme(
+      color: Colors.grey[850],
       textTheme: TextTheme(
         title: TextStyle(
           color: ColorList.primaryCream,
