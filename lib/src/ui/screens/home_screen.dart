@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'meals_screen.dart';
 import 'slot_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,6 +7,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SlotScreen();
+    return MealsScreen();
   }
 }

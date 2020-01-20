@@ -89,7 +89,7 @@ class _SlotScreenState extends State<SlotScreen> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: StyleList.vertical20,
+              padding: StyleList.verticalPadding20,
               child: Column(
                 children: <Widget>[
                   Container(
@@ -175,33 +175,47 @@ class _SlotScreenState extends State<SlotScreen> {
                 ],
               ),
             ),
-            Container(
-              width: baseWidth,
-              constraints: BoxConstraints(
-                maxHeight: 200.0,
-              ),
-              padding: StyleList.vertical20,
-              child: SingleChildScrollView(
-                child: TagList(),
-              ),
-            ),
             Expanded(
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                    width: baseWidth,
-                    padding: StyleList.vertical20,
-                    child: BaseButton(
-                      onPressed: () {
-                        slotStart();
-                      },
-                      text: 'Spin',
-                    )),
+              child: Container(
+                width: baseWidth,
+                // constraints: BoxConstraints(
+                //     maxHeight: 200.0,
+                //     ),
+                padding: StyleList.verticalPadding20,
+                child: SingleChildScrollView(
+                  child: TagList(),
+                ),
               ),
             ),
+            // Expanded(
+            //   child: Align(
+            //     alignment: Alignment.center,
+            //     child: Container(
+            //       width: baseWidth,
+            //       padding: StyleList.verticalPadding20,
+            //       child: BaseButton(
+            //         onPressed: () {
+            //           slotStart();
+            //         },
+            //         text: 'Spin',
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
+      floatingActionButton: Container(
+        width: baseWidth,
+        padding: StyleList.verticalPadding20,
+        child: BaseButton(
+          onPressed: () {
+            slotStart();
+          },
+          text: 'Spin',
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

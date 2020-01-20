@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../global/style_list.dart';
 
 class BaseButton extends StatelessWidget {
   final Function onPressed;
@@ -16,13 +17,6 @@ class BaseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 24.0,
-          fontWeight: FontWeight.w900,
-        ),
-      ),
       color: Theme.of(context).accentColor,
       textColor: Theme.of(context).primaryColor,
       disabledColor: Theme.of(context).accentColor.withOpacity(0.5),
@@ -32,6 +26,10 @@ class BaseButton extends StatelessWidget {
         side: BorderSide(
           color: Theme.of(context).accentColor,
         ),
+      ),
+      child: Text(
+        text,
+        style: StyleList.buttonTextStyle,
       ),
     );
   }

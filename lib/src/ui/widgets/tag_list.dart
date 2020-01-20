@@ -3,7 +3,10 @@ import 'package:flutter_tags/tag.dart';
 import '../../ui/global/color_list.dart';
 
 class TagList extends StatelessWidget {
-  // const TagList({Key key}) : super(key: key);
+  TagList({
+    Key key,
+    this.needTextField: false,
+  }) : super(key: key);
 
   static const List<String> nameList = [
     "パイ包み焼きサラダを添えて",
@@ -27,11 +30,25 @@ class TagList extends StatelessWidget {
       lst.where((a) => a.active == true).forEach((a) => print(a.title));
   }
 
+  final bool needTextField;
+
   @override
   Widget build(BuildContext context) {
     return Tags(
       key: _tagStateKey,
       itemCount: nameList.length,
+      textField: needTextField
+          ? TagsTextField(
+              textStyle: TextStyle(fontSize: 20.0),
+              onSubmitted: (String str) {
+                // Add item to the data source.
+                // setState(() {
+                //   // required
+                //   _items.add(str);
+                // });
+              },
+            )
+          : null,
       itemBuilder: (int index) {
         final item = nameList[index];
         return ItemTags(

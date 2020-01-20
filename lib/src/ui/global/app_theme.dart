@@ -23,6 +23,9 @@ final appThemes = {
       ),
       elevation: 0,
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorList.primaryOrange,
+    ),
   ),
   AppTheme.Dark: ThemeData.dark().copyWith(
     primaryColor: ColorList.primaryBlue,
@@ -39,6 +42,9 @@ final appThemes = {
         color: ColorList.primaryCream,
       ),
       elevation: 0,
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorList.primaryCream,
     ),
   ),
 };
