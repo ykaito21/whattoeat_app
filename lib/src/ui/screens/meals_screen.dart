@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:whattoeat_app/src/ui/shared/widgets/base_button.dart';
-import 'package:whattoeat_app/src/ui/widgets/tag_list.dart';
+import 'package:whattoeat_app/src/ui/screens/write_meal_screen.dart';
+import '../shared/widgets/base_button.dart';
+import '../widgets/tag_list.dart';
 import '../global/style_list.dart';
 
 class MealsScreen extends StatelessWidget {
@@ -9,10 +9,10 @@ class MealsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final deviceWidth = MediaQuery.of(context).size.width;
-    final baseWidth = deviceWidth * 0.9;
+    // final deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           'Meal List',
           style: StyleList.appBarTitleStyle,
@@ -22,33 +22,19 @@ class MealsScreen extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: <Widget>[
-            Container(
-              padding: const EdgeInsets.symmetric(
-                // vertical: 5.0,
-                horizontal: 10.0,
-              ),
-              decoration: BoxDecoration(),
+            Padding(
+              padding: StyleList.horizontalPadding20,
               child: TextField(
                 cursorColor: Theme.of(context).accentColor,
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                  ),
+                  contentPadding: StyleList.horizontalPadding20,
                   hintText: 'Meal Title',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(
-                        30.0,
-                      ),
-                    ),
+                    borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(
-                        30.0,
-                      ),
-                    ),
+                    borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(
                       color: Theme.of(context).accentColor,
                     ),
@@ -57,11 +43,11 @@ class MealsScreen extends StatelessWidget {
                     onPressed: () {},
                     icon: true
                         ? Icon(
-                            FontAwesomeIcons.search,
+                            Icons.search,
                             // color: Theme.of(context).accentColor,
                           )
                         : Icon(
-                            FontAwesomeIcons.times,
+                            Icons.clear,
                             // color: Theme.of(context).accentColor,
                           ),
                   ),
@@ -70,10 +56,11 @@ class MealsScreen extends StatelessWidget {
             ),
             StyleList.verticalBox10,
             Container(
-              height: 100.0,
-              padding: StyleList.horizontalPadding10,
+              // height: 100.0,
+              // padding: StyleList.horizontalPadding10,
               child: SingleChildScrollView(
-                // scrollDirection: Axis.horizontal,
+                padding: StyleList.horizontalPadding20,
+                scrollDirection: Axis.horizontal,
                 child: TagList(),
               ),
             ),
@@ -81,25 +68,56 @@ class MealsScreen extends StatelessWidget {
             Expanded(
               child: Container(
                 child: ListView.builder(
+                  padding: const EdgeInsets.all(0.0),
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return ListTile(title: Text('Test'));
+                    return Container(
+                      //* if using floating action button need maring
+                      // margin: index == 9 ? StyleList.bottomPadding50 : null,
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                      ),
+                      child: ListTile(
+                        onTap: () {},
+                        title: Text('Test'),
+                      ),
+                    );
                   },
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: double.infinity,
+                padding: StyleList.horizontalPadding20,
+                child: BaseButton(
+                  onPressed: () {
+                    Navigator.of(
+                      context,
+                      rootNavigator: true,
+                    ).push(
+                      MaterialPageRoute(
+                        builder: (context) => WriteMealScreen(),
+                      ),
+                    );
+                  },
+                  text: 'Add',
                 ),
               ),
             ),
           ],
         ),
       ),
-      floatingActionButton: Container(
-        width: baseWidth,
-        padding: StyleList.verticalPadding20,
-        child: BaseButton(
-          onPressed: () {},
-          text: 'Add',
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: Container(
+      //   width: deviceWidth,
+      //   padding: StyleList.horizontalPadding10,
+      //   child: BaseButton(
+      //     onPressed: () {},
+      //     text: 'Add',
+      //   ),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
