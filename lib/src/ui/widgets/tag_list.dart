@@ -3,6 +3,8 @@ import 'package:flutter_tags/tag.dart';
 import '../../ui/global/color_list.dart';
 
 class TagList extends StatelessWidget {
+  final bool needTextField;
+
   TagList({
     Key key,
     this.needTextField: false,
@@ -66,10 +68,9 @@ class TagList extends StatelessWidget {
       lst.where((a) => a.active == true).forEach((a) => print(a.title));
   }
 
-  final bool needTextField;
-
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Theme.of(context).primaryColor == ColorList.primaryCream;
     return Tags(
       key: _tagStateKey,
       itemCount: nameList.length,
@@ -87,27 +88,25 @@ class TagList extends StatelessWidget {
           : null,
       itemBuilder: (int index) {
         final item = nameList[index];
+        //TODO CHECK ELEVATION AND PADDING and border
         return ItemTags(
-          onPressed: (item) => print(item),
+          // pressEnabled: false,
+          onPressed: (item) {
+            _getAllItem();
+          },
           key: UniqueKey(),
           index: index,
           title: item,
           active: false,
           customData: item,
           elevation: 0,
-          borderRadius: BorderRadius.circular(30),
-          color: Theme.of(context).primaryColor == ColorList.primaryCream
-              ? Colors.grey[300]
-              : Colors.grey[600],
-          activeColor: Theme.of(context).accentColor,
-          textColor: Theme.of(context).primaryColor == ColorList.primaryCream
-              ? Colors.black
-              : Colors.white,
-          textActiveColor:
-              Theme.of(context).primaryColor == ColorList.primaryCream
-                  ? Colors.white
-                  : Colors.black,
           border: Border.all(style: BorderStyle.none),
+          borderRadius: BorderRadius.circular(30),
+          // border: Border.all(color: Theme.of(context).accentColor),
+          color: isDarkMode ? Colors.grey[200] : Colors.grey[700],
+          activeColor: Theme.of(context).accentColor,
+          textColor: isDarkMode ? Colors.black : Colors.white,
+          textActiveColor: isDarkMode ? Colors.white : Colors.black,
           textStyle: TextStyle(
             fontSize: 16,
           ),

@@ -21,9 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     //? need scaffold?
     return WillPopScope(
-      onWillPop: () async {
-        return !await _navigators[_currentIndex].currentState.maybePop();
-      },
+      onWillPop: () async =>
+          !await _navigators[_currentIndex].currentState.maybePop(),
       child: CupertinoTabScaffold(
         tabBuilder: (context, index) {
           return CupertinoTabView(
@@ -61,8 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
           onTap: (index) {
-            print(index);
-            print(_currentIndex);
             if (_currentIndex == index) {
               _navigators[index]
                   .currentState

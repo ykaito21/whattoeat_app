@@ -23,9 +23,9 @@ class BaseButton extends StatelessWidget {
       disabledTextColor: Theme.of(context).primaryColor.withOpacity(0.5),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
-        side: BorderSide(
-          color: Theme.of(context).accentColor,
-        ),
+        // side: BorderSide(
+        //   color: Theme.of(context).accentColor,
+        // ),
       ),
       child: Text(
         text,

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../widgets/tag_list.dart';
 import '../shared/widgets/base_button.dart';
 import '../global/style_list.dart';
-import 'write_meal_screen.dart';
 
 class SlotScreen extends StatefulWidget {
   const SlotScreen({Key key}) : super(key: key);
@@ -53,7 +52,7 @@ class _SlotScreenState extends State<SlotScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final deviceWidth = MediaQuery.of(context).size.width;
+    // final deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -88,90 +87,92 @@ class _SlotScreenState extends State<SlotScreen> {
       ),
       body: Container(
         width: double.infinity,
-        padding: StyleList.horizontalPadding20,
         child: Column(
           children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  height: 200.0,
-                  child: Stack(
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Container(
-                          child: Text(
-                            'You\'re',
-                            style: TextStyle(
-                              color: Theme.of(context).accentColor,
-                              fontSize: 48.0,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                          child: Text(
-                            'going to',
-                            style: TextStyle(
-                              color: Theme.of(context).accentColor,
-                              fontSize: 48.0,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                          child: Text(
-                            'eat',
-                            style: TextStyle(
-                              color: Theme.of(context).accentColor,
-                              fontSize: 48.0,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 100.0,
-                  child: ListWheelScrollView.useDelegate(
-                    controller: _slotScrollController,
-                    physics: FixedExtentScrollPhysics(),
-                    itemExtent: 100.0,
-                    childDelegate: ListWheelChildLoopingListDelegate(
+            Padding(
+              padding: StyleList.horizontalPadding20,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 200.0,
+                    child: Stack(
                       children: <Widget>[
-                        ...nameList.map(
-                          (String name) {
-                            return Container(
-                              child: Center(
-                                child: AutoSizeText(
-                                  name,
-                                  style: TextStyle(
-                                    color: Theme.of(context).accentColor,
-                                    fontSize: 48.0,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  minFontSize: 24,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            child: Text(
+                              'You\'re',
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontSize: 48.0,
+                                fontWeight: FontWeight.w900,
                               ),
-                            );
-                          },
-                        )
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Container(
+                            child: Text(
+                              'going to',
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontSize: 48.0,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                            child: Text(
+                              'eat',
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontSize: 48.0,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    height: 100.0,
+                    child: ListWheelScrollView.useDelegate(
+                      controller: _slotScrollController,
+                      physics: FixedExtentScrollPhysics(),
+                      itemExtent: 100.0,
+                      childDelegate: ListWheelChildLoopingListDelegate(
+                        children: <Widget>[
+                          ...nameList.map(
+                            (String name) {
+                              return Container(
+                                child: Center(
+                                  child: AutoSizeText(
+                                    name,
+                                    style: TextStyle(
+                                      color: Theme.of(context).accentColor,
+                                      fontSize: 48.0,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    minFontSize: 24,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             StyleList.verticalBox20,
             Expanded(
@@ -182,6 +183,7 @@ class _SlotScreenState extends State<SlotScreen> {
                 //* if using floating action button need maring
                 // padding: StyleList.bottomPadding50,
                 child: SingleChildScrollView(
+                  padding: StyleList.horizontalPadding20,
                   child: TagList(),
                 ),
               ),
@@ -190,6 +192,7 @@ class _SlotScreenState extends State<SlotScreen> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: double.infinity,
+                padding: StyleList.horizontalPadding20,
                 child: BaseButton(
                   onPressed: () {
                     slotStart();
