@@ -1,105 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/tag.dart';
+import '../../core/services/database_service.dart' as db;
 import '../../ui/global/color_list.dart';
 
 class TagList extends StatelessWidget {
-  final bool needTextField;
+  final List<db.Tag> tags;
+  final provider;
+  final bool editable;
+  final List<db.Tag> selectedTags;
 
   TagList({
     Key key,
-    this.needTextField: false,
-  }) : super(key: key);
-
-  static const List<String> nameList = [
-    "パイ包み焼きサラダを添えて",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-    "パイ包み焼きサラダを添えて",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-    "パイ包み焼きサラダを添えて",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-    "パイ包み焼きサラダを添えて",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ];
-
-  final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
-  _getAllItem() {
-    List<Item> lst = _tagStateKey.currentState?.getAllItem;
-    if (lst != null)
-      lst.where((a) => a.active == true).forEach((a) => print(a.title));
-  }
+    @required this.tags,
+    @required this.provider,
+    this.editable = false,
+    this.selectedTags = const [],
+  })  : assert(tags != null),
+        assert(provider != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = Theme.of(context).primaryColor == ColorList.primaryCream;
     return Tags(
-      key: _tagStateKey,
-      itemCount: nameList.length,
-      textField: needTextField
+      // key: _tagsStateKey,
+      itemCount: tags.length,
+      textField: editable
           ? TagsTextField(
-              textStyle: TextStyle(fontSize: 20.0),
-              onSubmitted: (String str) {
-                // Add item to the data source.
-                // setState(() {
-                //   // required
-                //   _items.add(str);
-                // });
-              },
+              textStyle: TextStyle(
+                fontSize: 16.0,
+              ),
+              autofocus: false,
+              hintText: 'New Tag',
+              helperText: ' ',
+              width: 100.0,
+              maxLength: 10,
+              inputDecoration: InputDecoration(
+                counterText: '',
+                //* to remove bottom padding
+                isDense: true,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Theme.of(context).accentColor,
+                  ),
+                ),
+              ),
+              //todo need alert or snackbar
+              onSubmitted: provider.onSubmitTag,
             )
           : null,
       itemBuilder: (int index) {
-        final item = nameList[index];
-        //TODO CHECK ELEVATION AND PADDING and border
+        final db.Tag tag = tags[index];
+        bool isDarkMode =
+            Theme.of(context).primaryColor == ColorList.primaryCream;
         return ItemTags(
-          // pressEnabled: false,
-          onPressed: (item) {
-            _getAllItem();
-          },
+          onPressed: (item) =>
+              provider.onPressedTag(item.customData, item.active),
           key: UniqueKey(),
           index: index,
-          title: item,
-          active: false,
-          customData: item,
-          elevation: 0,
+          title: tag.name,
+          active: selectedTags.contains(tag) ? true : false,
+          customData: tag,
+          elevation: 2,
           border: Border.all(style: BorderStyle.none),
           borderRadius: BorderRadius.circular(30),
           // border: Border.all(color: Theme.of(context).accentColor),
@@ -110,6 +74,14 @@ class TagList extends StatelessWidget {
           textStyle: TextStyle(
             fontSize: 16,
           ),
+          removeButton: editable
+              ? ItemTagsRemoveButton(
+                  backgroundColor:
+                      isDarkMode ? Colors.grey[200] : Colors.grey[700],
+                  color: Theme.of(context).accentColor,
+                )
+              : null,
+          onRemoved: () => provider.onRemoveTag(tag),
         );
       },
     );

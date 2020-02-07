@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:whattoeat_app/src/ui/shared/widgets/base_button.dart';
+import 'package:provider/provider.dart';
+import '../../core/providers/write_meal_screen_provider.dart';
+import '../shared/widgets/base_text_field.dart';
+import '../widgets/submit_button_wrapper.dart';
+import '../../core/providers/app_provider.dart';
+import '../../core/services/database_service.dart';
+import '../shared/widgets/stream_wrapper.dart';
 import '../widgets/tag_list.dart';
 import '../global/style_list.dart';
 
@@ -8,10 +14,24 @@ class WriteMealScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppProvider appProvider =
+        Provider.of<AppProvider>(context, listen: false);
+    final WriteMealScreenProvider writeMealScreenProvider =
+        Provider.of<WriteMealScreenProvider>(context, listen: false);
+
+    final double deviseHeight = MediaQuery.of(context).size.height;
+    final double topPadding = MediaQuery.of(context).padding.top;
+    final double bottomPadding = MediaQuery.of(context).padding.bottom;
+    // kToolbarHeight
+    final double appBarHeight = 56.0;
+    // _kTabBarHeight
+    // final double bottomNavHeight = 50.0;
+    final double wrapperHeight =
+        deviseHeight - (topPadding + bottomPadding + appBarHeight);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'New Meal',
+          writeMealScreenProvider.isNew() ? 'New Meal' : 'Edit Meal',
           style: StyleList.appBarTitleStyle,
         ),
       ),
@@ -22,92 +42,88 @@ class WriteMealScreen extends StatelessWidget {
         child: Container(
           width: double.infinity,
           child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  constraints: BoxConstraints(
-                    maxHeight: 250.0,
-                  ),
-                  padding: StyleList.horizontalPadding20,
-                  child: TextField(
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 20.0,
-                      ),
-                      hintText: 'Meal Title',
-                      border: InputBorder.none,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).accentColor,
-                        ),
-                      ),
+            child: Container(
+              height: wrapperHeight,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    constraints: BoxConstraints(
+                      maxHeight: 160.0,
                     ),
-                    cursorColor: Theme.of(context).accentColor,
-                    style: TextStyle(
-                      fontSize: 48.0,
-                    ),
-                  ),
-                ),
-                StyleList.verticalBox20,
-                Container(
-                  height: 200.0,
-                  child: SingleChildScrollView(
                     padding: StyleList.horizontalPadding20,
-                    child: TagList(),
-                  ),
-                ),
-                StyleList.verticalBox20,
-                Container(
-                  constraints: BoxConstraints(
-                    maxHeight: 250.0,
-                  ),
-                  padding: StyleList.horizontalPadding20,
-                  child: TextField(
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 20.0,
+                    child: BaseTextField(
+                      textEditingController:
+                          writeMealScreenProvider.nameController,
+                      hintText: 'Meal Name',
+                      textStyle: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.w900,
                       ),
-                      hintText: 'Memo',
-                      border: InputBorder.none,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).accentColor,
+                      maxLength: 50,
+                      focusNode: writeMealScreenProvider.nameFocusNode,
+                    ),
+                  ),
+                  StyleList.verticalBox10,
+                  Container(
+                    height: 150.0,
+                    child: StreamWrapper<List<Tag>>(
+                      stream: appProvider.streamTags(),
+                      onSuccess: (context, List<Tag> tags) {
+                        return SingleChildScrollView(
+                          padding: StyleList.verticalHorizontalPaddding1020,
+                          child: TagList(
+                            tags: tags,
+                            editable: true,
+                            selectedTags: writeMealScreenProvider.initialTags,
+                            provider: writeMealScreenProvider,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  StyleList.verticalBox10,
+                  Expanded(
+                    child: Padding(
+                      padding: StyleList.horizontalPadding20,
+                      child: BaseTextField(
+                        textEditingController:
+                            writeMealScreenProvider.noteController,
+                        hintText: 'Note',
+                        textStyle: TextStyle(
+                          fontSize: 20.0,
                         ),
                       ),
                     ),
-                    cursorColor: Theme.of(context).accentColor,
-                    style: TextStyle(),
                   ),
-                ),
-                Container(
-                  width: double.infinity,
-                  padding: StyleList.horizontalPadding20,
-                  child: BaseButton(
-                    onPressed: () {},
-                    text: 'Save Edit',
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  padding: StyleList.horizontalPadding20,
-                  child: FlatButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Delete',
-                      style: TextStyle(
-                        color: Theme.of(context).accentColor,
-                        fontSize: 20.0,
-                      ),
+                  StyleList.verticalBox20,
+                  Container(
+                    height: 96,
+                    padding: StyleList.horizontalPadding20,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        SubmitButtonWrapper(),
+                        FlatButton(
+                          onPressed: () {
+                            //todo need to fix
+                            appProvider.deleteMealWithTags(
+                                writeMealScreenProvider.currentMealWithTags);
+                            //todo alert snack
+                          },
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(
+                              color: Theme.of(context).accentColor,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -1,58 +1,25 @@
-import 'dart:math';
-
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:whattoeat_app/src/core/providers/slot_screen_provider.dart';
+import '../../core/providers/app_provider.dart';
+import '../../core/services/database_service.dart';
 import '../widgets/tag_list.dart';
+import '../widgets/slot_display.dart';
 import '../shared/widgets/base_button.dart';
+import '../shared/widgets/stream_wrapper.dart';
 import '../global/style_list.dart';
 
-class SlotScreen extends StatefulWidget {
+class SlotScreen extends StatelessWidget {
   const SlotScreen({Key key}) : super(key: key);
 
   @override
-  _SlotScreenState createState() => _SlotScreenState();
-}
-
-class _SlotScreenState extends State<SlotScreen> {
-  FixedExtentScrollController _slotScrollController =
-      FixedExtentScrollController();
-  int index = 0;
-  bool isScrolling = false;
-  Random random = Random();
-
-  List<String> nameList = [
-    "パイ包み焼きサラダを添えて",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ];
-
-  @override
-  void dispose() {
-    _slotScrollController.dispose();
-    super.dispose();
-  }
-
-  void slotStart() {
-    _slotScrollController.animateToItem(
-      _slotScrollController.selectedItem +
-          ((nameList.length * 3) + random.nextInt(nameList.length)),
-      duration: Duration(seconds: 3),
-      curve: Curves.ease,
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // final deviceWidth = MediaQuery.of(context).size.width;
+    //todo should fix loading state? could be cempty loading container
+    //todo internatinalization
+    final AppProvider appProvider =
+        Provider.of<AppProvider>(context, listen: false);
+    final SlotScreenProvider slotScreenProvider =
+        Provider.of<SlotScreenProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -91,112 +58,31 @@ class _SlotScreenState extends State<SlotScreen> {
           children: <Widget>[
             Padding(
               padding: StyleList.horizontalPadding20,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: 200.0,
-                    child: Stack(
-                      children: <Widget>[
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Container(
-                            child: Text(
-                              'You\'re',
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
-                                fontSize: 48.0,
-                                fontWeight: FontWeight.w900,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            child: Text(
-                              'going to',
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
-                                fontSize: 48.0,
-                                fontWeight: FontWeight.w900,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                            child: Text(
-                              'eat',
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
-                                fontSize: 48.0,
-                                fontWeight: FontWeight.w900,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 100.0,
-                    child: ListWheelScrollView.useDelegate(
-                      controller: _slotScrollController,
-                      physics: FixedExtentScrollPhysics(),
-                      itemExtent: 100.0,
-                      childDelegate: ListWheelChildLoopingListDelegate(
-                        children: <Widget>[
-                          ...nameList.map(
-                            (String name) {
-                              return Container(
-                                child: Center(
-                                  child: AutoSizeText(
-                                    name,
-                                    style: TextStyle(
-                                      color: Theme.of(context).accentColor,
-                                      fontSize: 48.0,
-                                      fontWeight: FontWeight.w900,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    minFontSize: 24,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              );
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              child: SlotDisplay(),
             ),
-            StyleList.verticalBox20,
+            StyleList.verticalBox10,
             Expanded(
-              child: Container(
-                // constraints: BoxConstraints(
-                //     maxHeight: 200.0,
-                //     ),
-                //* if using floating action button need maring
-                // padding: StyleList.bottomPadding50,
-                child: SingleChildScrollView(
-                  padding: StyleList.horizontalPadding20,
-                  child: TagList(),
-                ),
+              child: StreamWrapper<List<Tag>>(
+                stream: appProvider.streamTags(),
+                onSuccess: (context, List<Tag> tags) {
+                  return SingleChildScrollView(
+                    padding: StyleList.verticalHorizontalPaddding1020,
+                    child: TagList(
+                      tags: tags,
+                      provider: slotScreenProvider,
+                    ),
+                  );
+                },
               ),
             ),
+            StyleList.verticalBox10,
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: double.infinity,
                 padding: StyleList.horizontalPadding20,
                 child: BaseButton(
-                  onPressed: () {
-                    slotStart();
-                  },
+                  onPressed: slotScreenProvider.slotStart,
                   text: 'Spin',
                 ),
               ),
@@ -204,17 +90,6 @@ class _SlotScreenState extends State<SlotScreen> {
           ],
         ),
       ),
-      // floatingActionButton: Container(
-      //   width: deviceWidth,
-      //   padding: StyleList.horizontalPadding10,
-      //   child: BaseButton(
-      //     onPressed: () {
-      //       slotStart();
-      //     },
-      //     text: 'Spin',
-      //   ),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

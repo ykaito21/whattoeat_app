@@ -15,7 +15,7 @@ class BaseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return RaisedButton(
       onPressed: onPressed,
       color: Theme.of(context).accentColor,
       textColor: Theme.of(context).primaryColor,

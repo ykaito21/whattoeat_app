@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'meals_screen.dart';
-import 'slot_screen.dart';
+import 'meals_screen_wrapper.dart';
+import 'slot_screen_wrapper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onWillPop: () async =>
           !await _navigators[_currentIndex].currentState.maybePop(),
       child: CupertinoTabScaffold(
+        resizeToAvoidBottomInset: false,
         tabBuilder: (context, index) {
           return CupertinoTabView(
             navigatorKey: _navigators[index],
@@ -31,9 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context) {
               switch (index) {
                 case 0:
-                  return SlotScreen();
+                  return SlotScreenWrapper();
                 case 1:
-                  return MealsScreen();
+                  return MealsScreenWrapper();
                 default:
                   return Container();
               }

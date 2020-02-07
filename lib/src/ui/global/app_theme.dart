@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../global/color_list.dart';
 
@@ -11,6 +12,12 @@ final appThemes = {
     primaryColor: ColorList.primaryCream,
     accentColor: ColorList.primaryOrange,
     scaffoldBackgroundColor: Colors.grey[50],
+    //* for cursor color
+    cupertinoOverrideTheme: CupertinoThemeData(
+      primaryColor: ColorList.primaryOrange,
+    ),
+    cursorColor: ColorList.primaryOrange,
+
     appBarTheme: AppBarTheme(
       color: Colors.grey[50],
       textTheme: TextTheme(
@@ -31,6 +38,10 @@ final appThemes = {
     primaryColor: ColorList.primaryBlue,
     accentColor: ColorList.primaryCream,
     scaffoldBackgroundColor: Colors.grey[850],
+    cupertinoOverrideTheme: CupertinoThemeData(
+      primaryColor: ColorList.primaryCream,
+    ),
+    cursorColor: ColorList.primaryCream,
     appBarTheme: AppBarTheme(
       color: Colors.grey[850],
       textTheme: TextTheme(
