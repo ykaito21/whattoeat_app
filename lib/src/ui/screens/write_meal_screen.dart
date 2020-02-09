@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/providers/write_meal_screen_provider.dart';
-import '../shared/widgets/base_text_field.dart';
-import '../widgets/submit_button_wrapper.dart';
 import '../../core/providers/app_provider.dart';
+import '../../core/providers/write_meal_screen_provider.dart';
 import '../../core/services/database_service.dart';
+import '../shared/widgets/base_text_field.dart';
 import '../shared/widgets/stream_wrapper.dart';
+import '../widgets/submit_button_wrapper.dart';
 import '../widgets/tag_list.dart';
 import '../global/style_list.dart';
 
@@ -28,17 +28,16 @@ class WriteMealScreen extends StatelessWidget {
     // final double bottomNavHeight = 50.0;
     final double wrapperHeight =
         deviseHeight - (topPadding + bottomPadding + appBarHeight);
+    final bool isNew = writeMealScreenProvider.isNew();
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          writeMealScreenProvider.isNew() ? 'New Meal' : 'Edit Meal',
+          isNew ? 'New Meal' : 'Edit Meal',
           style: StyleList.appBarTitleStyle,
         ),
       ),
       body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
+        onTap: () => FocusScope.of(context).unfocus(),
         child: Container(
           width: double.infinity,
           child: SingleChildScrollView(
@@ -105,14 +104,16 @@ class WriteMealScreen extends StatelessWidget {
                       children: <Widget>[
                         SubmitButtonWrapper(),
                         FlatButton(
-                          onPressed: () {
-                            //todo need to fix
-                            appProvider.deleteMealWithTags(
-                                writeMealScreenProvider.currentMealWithTags);
-                            //todo alert snack
-                          },
+                          onPressed: isNew
+                              ? null
+                              : () {
+                                  appProvider.deleteMealWithTags(
+                                      writeMealScreenProvider
+                                          .currentMealWithTags);
+                                  //todo alert snack
+                                },
                           child: Text(
-                            'Delete',
+                            isNew ? '' : 'Delete',
                             style: TextStyle(
                               color: Theme.of(context).accentColor,
                               fontSize: 20.0,

@@ -44,7 +44,6 @@ class SlotScreenProvider {
 
   final BehaviorSubject<List<Tag>> _slotScreenTagSubject =
       BehaviorSubject<List<Tag>>.seeded(<Tag>[]);
-  BehaviorSubject<List<Tag>> get slotScreenTagSubject => _slotScreenTagSubject;
   Stream<List<Tag>> get streamSlotScreenSelectedTags =>
       _slotScreenTagSubject.stream;
 }

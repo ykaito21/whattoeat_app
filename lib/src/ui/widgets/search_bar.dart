@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/providers/meals_screen_provider.dart';
-import '../../core/providers/app_provider.dart';
 import '../global/style_list.dart';
 
 class SearchBar extends StatelessWidget {
@@ -13,7 +12,6 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final MealsScreenProvider mealsScreenProvider =
         Provider.of<MealsScreenProvider>(context, listen: false);
-    //todo improve design
     return TextField(
       onChanged: mealsScreenProvider.searchInput,
       controller: mealsScreenProvider.searchController,
@@ -30,18 +28,17 @@ class SearchBar extends StatelessWidget {
             color: Theme.of(context).accentColor,
           ),
         ),
-        suffixIcon: IconButton(
-          onPressed: () => mealsScreenProvider.clearKeywords(),
-          icon: true
-              ? Icon(
-                  Icons.search,
-                  // color: Theme.of(context).accentColor,
-                )
-              : Icon(
+        suffixIcon: mealsScreenProvider.toggleIcon()
+            ? Icon(
+                Icons.search,
+              )
+            : IconButton(
+                onPressed: mealsScreenProvider.clearKeywords,
+                icon: Icon(
                   Icons.clear,
-                  // color: Theme.of(context).accentColor,
+                  color: Theme.of(context).accentColor,
                 ),
-        ),
+              ),
       ),
     );
   }

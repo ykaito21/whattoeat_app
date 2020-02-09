@@ -9,8 +9,7 @@ class BaseButton extends StatelessWidget {
     Key key,
     @required this.onPressed,
     @required this.text,
-  })  : assert(onPressed != null),
-        assert(text != null),
+  })  : assert(text != null),
         super(key: key);
 
   @override

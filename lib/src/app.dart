@@ -14,7 +14,6 @@ class App extends StatelessWidget {
       providers: [
         Provider(
           create: (_) => AppProvider(),
-          //todo oprtional?
           dispose: (_, appProvider) => appProvider.dispose,
         ),
       ],

@@ -14,7 +14,6 @@ class SlotScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //todo should fix loading state? could be cempty loading container
     //todo internatinalization
     final AppProvider appProvider =
         Provider.of<AppProvider>(context, listen: false);
@@ -26,30 +25,7 @@ class SlotScreen extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              'What',
-              style: StyleList.appBarTitleStyle,
-            ),
-            ClipRect(
-              child: Container(
-                child: Align(
-                  alignment: Alignment.center,
-                  heightFactor: 0.6,
-                  child: Text(
-                    '2\n2',
-                    style: StyleList.appBarTitleStyle.copyWith(
-                      height: 0.9,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Text(
-              'Eat',
-              style: StyleList.appBarTitleStyle,
-            ),
-          ],
+          children: _appBarTitle(),
         ),
       ),
       body: Container(
@@ -64,6 +40,9 @@ class SlotScreen extends StatelessWidget {
             Expanded(
               child: StreamWrapper<List<Tag>>(
                 stream: appProvider.streamTags(),
+                onWaitting: (context) {
+                  return Container();
+                },
                 onSuccess: (context, List<Tag> tags) {
                   return SingleChildScrollView(
                     padding: StyleList.verticalHorizontalPaddding1020,
@@ -91,5 +70,32 @@ class SlotScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> _appBarTitle() {
+    return <Widget>[
+      Text(
+        'What',
+        style: StyleList.appBarTitleStyle,
+      ),
+      ClipRect(
+        child: Container(
+          child: Align(
+            alignment: Alignment.center,
+            heightFactor: 0.6,
+            child: Text(
+              '2\n2',
+              style: StyleList.appBarTitleStyle.copyWith(
+                height: 0.9,
+              ),
+            ),
+          ),
+        ),
+      ),
+      Text(
+        'Eat',
+        style: StyleList.appBarTitleStyle,
+      ),
+    ];
   }
 }

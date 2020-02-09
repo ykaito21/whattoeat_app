@@ -15,15 +15,13 @@ class SubmitButtonWrapper extends StatelessWidget {
       stream: writeMealScreenProvider.checkUpdate(),
       onError: (context, _) {
         return BaseButton(
-          onPressed: () {
-            //todo  add alert dialog
-          },
+          onPressed: null,
           text: 'Error',
         );
       },
       onWaitting: (context) {
         return BaseButton(
-          onPressed: () {},
+          onPressed: null,
           text: 'Edit',
         );
       },

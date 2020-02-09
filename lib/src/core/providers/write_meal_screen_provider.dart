@@ -99,12 +99,8 @@ class WriteMealScreenProvider {
 
   final BehaviorSubject<List<Tag>> _writeMealScreenTagSubject =
       BehaviorSubject<List<Tag>>.seeded(<Tag>[]);
-  BehaviorSubject<List<Tag>> get writeMealScreenTagSubject =>
-      _writeMealScreenTagSubject;
-  // Stream<List<Tag>> get streamWriteMealScreenSelectedTags =>
-  //     _writeMealScreenTagSubject.stream;
 
-  // FOR BUTTON
+  // For button
   final BehaviorSubject<bool> _checkUpdateSubject =
       BehaviorSubject<bool>.seeded(false);
   Stream<bool> get isUpdated => _checkUpdateSubject.stream;

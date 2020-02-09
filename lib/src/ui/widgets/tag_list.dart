@@ -22,38 +22,11 @@ class TagList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tags(
-      // key: _tagsStateKey,
       itemCount: tags.length,
-      textField: editable
-          ? TagsTextField(
-              textStyle: TextStyle(
-                fontSize: 16.0,
-              ),
-              autofocus: false,
-              hintText: 'New Tag',
-              helperText: ' ',
-              width: 100.0,
-              maxLength: 10,
-              inputDecoration: InputDecoration(
-                counterText: '',
-                //* to remove bottom padding
-                isDense: true,
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
-
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Theme.of(context).accentColor,
-                  ),
-                ),
-              ),
-              //todo need alert or snackbar
-              onSubmitted: provider.onSubmitTag,
-            )
-          : null,
+      textField: _tagsTextField(context),
       itemBuilder: (int index) {
         final db.Tag tag = tags[index];
-        bool isDarkMode =
+        final bool isDarkMode =
             Theme.of(context).primaryColor == ColorList.primaryCream;
         return ItemTags(
           onPressed: (item) =>
@@ -81,9 +54,40 @@ class TagList extends StatelessWidget {
                   color: Theme.of(context).accentColor,
                 )
               : null,
+          //todo need alert or snackbar
           onRemoved: () => provider.onRemoveTag(tag),
         );
       },
     );
+  }
+
+  TagsTextField _tagsTextField(context) {
+    return editable
+        ? TagsTextField(
+            //todo need alert or snackbar
+            onSubmitted: provider.onSubmitTag,
+            autofocus: false,
+            //todo i18n
+            hintText: 'New Tag',
+            helperText: ' ',
+            width: 80.0,
+            maxLength: 10,
+            textStyle: TextStyle(
+              fontSize: 16.0,
+            ),
+            inputDecoration: InputDecoration(
+              counterText: '',
+              //* to remove bottom padding
+              isDense: true,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).accentColor,
+                ),
+              ),
+            ),
+          )
+        : null;
   }
 }

@@ -29,17 +29,16 @@ class MealsScreenProvider {
 
   final BehaviorSubject<List<Tag>> _mealsScreenTagSubject =
       BehaviorSubject<List<Tag>>.seeded(<Tag>[]);
-  BehaviorSubject<List<Tag>> get mealsScreenTagSubject =>
-      _mealsScreenTagSubject;
   Stream<List<Tag>> get streamMealsScreenSelectedTags =>
       _mealsScreenTagSubject.stream;
 
-  // FOR KEYWORDS
+  // For keywords
   final TextEditingController _searchController = TextEditingController();
   TextEditingController get searchController => _searchController;
+
   final BehaviorSubject<List<String>> _searchSubject =
       BehaviorSubject<List<String>>.seeded(<String>[]);
-  List<String> get searchedKeywords => _searchSubject.value;
+  // List<String> get searchedKeywords => _searchSubject.value;
   Stream<List<String>> get streamSearchKeywords => _searchSubject.stream;
 
   void searchInput(String input) {
@@ -49,6 +48,7 @@ class MealsScreenProvider {
   }
 
   void clearKeywords() {
+    // to avoid exception
     Future.delayed(Duration(milliseconds: 50)).then(
       (_) {
         _searchController.clear();
@@ -56,4 +56,7 @@ class MealsScreenProvider {
       },
     );
   }
+
+  // can be stream
+  bool toggleIcon() => _searchController.text == '';
 }
