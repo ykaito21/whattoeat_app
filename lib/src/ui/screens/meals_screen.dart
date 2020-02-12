@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app_localizations.dart';
 import '../../core/providers/meals_screen_provider.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
@@ -31,7 +32,7 @@ class MealsScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Meal List',
+          AppLocalizations.of(context).translate('list'),
           style: StyleList.appBarTitleStyle,
         ),
       ),
@@ -73,8 +74,8 @@ class MealsScreen extends StatelessWidget {
                   onSuccess: (context, List<MealWithTags> mealWithTagsList) {
                     if (mealWithTagsList.isEmpty)
                       return Center(
-                        //todo i18n
-                        child: Text('No Meal Found',
+                        child: Text(
+                            AppLocalizations.of(context).translate('noMeal'),
                             style: StyleList.baseTitleTextStyle),
                       );
                     return ListView.builder(
@@ -98,8 +99,7 @@ class MealsScreen extends StatelessWidget {
                   padding: StyleList.horizontalPadding20,
                   child: BaseButton(
                     onPressed: () => _onPressedAdd(context),
-                    //todo i18n
-                    text: 'Add',
+                    text: AppLocalizations.of(context).translate('add'),
                   ),
                 ),
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app_localizations.dart';
 import '../../core/providers/slot_screen_provider.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
@@ -24,9 +25,8 @@ class SlotDisplay extends StatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: Container(
-                  //todo i18n
                   child: Text(
-                    'You\'re',
+                    AppLocalizations.of(context).translate('slotTitleFirst'),
                     style: TextStyle(
                       color: Theme.of(context).accentColor,
                       fontSize: 48.0,
@@ -39,7 +39,7 @@ class SlotDisplay extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Container(
                   child: Text(
-                    'going to',
+                    AppLocalizations.of(context).translate('slotTitleSecond'),
                     style: TextStyle(
                       color: Theme.of(context).accentColor,
                       fontSize: 48.0,
@@ -52,7 +52,7 @@ class SlotDisplay extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: Container(
                   child: Text(
-                    'eat',
+                    AppLocalizations.of(context).translate('slotTitleThird'),
                     style: TextStyle(
                       color: Theme.of(context).accentColor,
                       fontSize: 48.0,

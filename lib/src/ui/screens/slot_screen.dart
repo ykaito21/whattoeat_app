@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app_localizations.dart';
 import '../../core/providers/slot_screen_provider.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
@@ -25,7 +26,7 @@ class SlotScreen extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children: _appBarTitle(),
+          children: _appBarTitle(context),
         ),
       ),
       body: Container(
@@ -62,7 +63,7 @@ class SlotScreen extends StatelessWidget {
                 padding: StyleList.horizontalPadding20,
                 child: BaseButton(
                   onPressed: slotScreenProvider.slotStart,
-                  text: 'Spin',
+                  text: AppLocalizations.of(context).translate('spin'),
                 ),
               ),
             ),
@@ -72,10 +73,11 @@ class SlotScreen extends StatelessWidget {
     );
   }
 
-  List<Widget> _appBarTitle() {
+  List<Widget> _appBarTitle(BuildContext context) {
     return <Widget>[
+      //todo need localize title or not
       Text(
-        'What',
+        AppLocalizations.of(context).translate('appTitleFirst'),
         style: StyleList.appBarTitleStyle,
       ),
       ClipRect(
@@ -84,7 +86,7 @@ class SlotScreen extends StatelessWidget {
             alignment: Alignment.center,
             heightFactor: 0.6,
             child: Text(
-              '2\n2',
+              AppLocalizations.of(context).translate('appTitleSecond'),
               style: StyleList.appBarTitleStyle.copyWith(
                 height: 0.9,
               ),
@@ -93,7 +95,7 @@ class SlotScreen extends StatelessWidget {
         ),
       ),
       Text(
-        'Eat',
+        AppLocalizations.of(context).translate('appTitleThird'),
         style: StyleList.appBarTitleStyle,
       ),
     ];

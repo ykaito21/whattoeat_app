@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import '../../app_localizations.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
 import '../global/routes/route_path.dart';
@@ -20,22 +21,23 @@ class MealTile extends StatelessWidget {
   List<Tag> get tags => mealWithTags.tags;
 
   Future<bool> _onWillDismiss(context, String mealName) {
-    //todo i18n
     return PlatformAlertDialog(
-      title: 'Do you want to delete "$mealName"?',
-      content: '$mealName will be deleted from list',
-      defaultActionText: 'Yes',
-      cancelActionText: 'No',
+      title:
+          '${AppLocalizations.of(context).translate('alertDeleteTitle')} "$mealName"${AppLocalizations.of(context).translate('questionMark')}',
+      content:
+          '$mealName ${AppLocalizations.of(context).translate('alertDeleteContentMeal')}',
+      defaultActionText: AppLocalizations.of(context).translate('yes'),
+      cancelActionText: AppLocalizations.of(context).translate('no'),
     ).show(context);
   }
 
   void _onDismissed(BuildContext context, AppProvider appProvider) {
-    //todo i18n
     appProvider.deleteMealWithTags(mealWithTags);
     Scaffold.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(
-        StyleList.baseSnackBar(context, '"$mealName" was successfully deleted'),
+        StyleList.baseSnackBar(context,
+            '"$mealName" ${AppLocalizations.of(context).translate('wasDeleted')}'),
       );
   }
 
@@ -82,20 +84,19 @@ class MealTile extends StatelessWidget {
         subtitle: Wrap(children: _tags(context, tags, appliedSlidableColor)),
       ),
       secondaryActions: <Widget>[
-        //todo i18n
         IconSlideAction(
           onTap: () => _onTapEdit(context),
           color: Theme.of(context).accentColor,
           foregroundColor: appliedSlidableColor,
           icon: Icons.edit,
-          caption: 'Edit',
+          caption: AppLocalizations.of(context).translate('edit'),
         ),
         IconSlideAction(
           onTap: () async => await _onTapDelete(context, appProvider),
           color: Theme.of(context).accentColor,
           foregroundColor: appliedSlidableColor,
           icon: Icons.delete,
-          caption: 'Delete',
+          caption: AppLocalizations.of(context).translate('delete'),
         ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app_localizations.dart';
 import '../../core/providers/slot_screen_provider.dart';
 import '../../core/services/database_service.dart';
 
@@ -33,8 +34,7 @@ class SlotList extends StatelessWidget {
       Container(
         child: Center(
           child: AutoSizeText(
-            //todo i18n
-            'Nothing...',
+            AppLocalizations.of(context).translate('slotEmpty'),
             style: TextStyle(
               color: Theme.of(context).accentColor,
               fontSize: 48.0,

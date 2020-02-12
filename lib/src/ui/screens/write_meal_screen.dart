@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:whattoeat_app/src/ui/shared/platform/platform_alert_dialog.dart';
+import '../../app_localizations.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/providers/write_meal_screen_provider.dart';
 import '../../core/services/database_service.dart';
@@ -18,21 +19,22 @@ class WriteMealScreen extends StatelessWidget {
     AppProvider appProvider,
     MealWithTags currentMealWithTags,
   ) async {
-    //todo i18n
     final String mealName = currentMealWithTags.meal.name;
     final bool res = await PlatformAlertDialog(
-      title: 'Do you want to delete "$mealName"?',
-      content: '$mealName will be deleted from list',
-      defaultActionText: 'Yes',
-      cancelActionText: 'No',
+      title:
+          '${AppLocalizations.of(context).translate('alertDeleteTitle')} "$mealName"${AppLocalizations.of(context).translate('questionMark')}',
+      content:
+          '$mealName ${AppLocalizations.of(context).translate('alertDeleteContentMeal')}',
+      defaultActionText: AppLocalizations.of(context).translate('yes'),
+      cancelActionText: AppLocalizations.of(context).translate('no'),
     ).show(context);
     if (res) {
       appProvider.deleteMealWithTags(currentMealWithTags);
       Scaffold.of(context)
         ..removeCurrentSnackBar()
         ..showSnackBar(
-          StyleList.baseSnackBar(
-              context, '"$mealName" was successfully deleted'),
+          StyleList.baseSnackBar(context,
+              '"$mealName" ${AppLocalizations.of(context).translate('wasDeleted')}'),
         );
     }
   }
@@ -59,7 +61,9 @@ class WriteMealScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          isNew ? 'New Meal' : 'Edit Meal',
+          isNew
+              ? AppLocalizations.of(context).translate('newMeal')
+              : AppLocalizations.of(context).translate('editMeal'),
           style: StyleList.appBarTitleStyle,
         ),
       ),
@@ -72,7 +76,6 @@ class WriteMealScreen extends StatelessWidget {
               height: wrapperHeight,
               child: Column(
                 children: <Widget>[
-                  //todo i18n
                   Container(
                     constraints: BoxConstraints(
                       maxHeight: 160.0,
@@ -81,7 +84,8 @@ class WriteMealScreen extends StatelessWidget {
                     child: BaseTextField(
                       textEditingController:
                           writeMealScreenProvider.nameController,
-                      hintText: 'Meal Name',
+                      hintText:
+                          AppLocalizations.of(context).translate('mealName'),
                       textStyle: TextStyle(
                         fontSize: 40.0,
                         fontWeight: FontWeight.w900,
@@ -115,7 +119,8 @@ class WriteMealScreen extends StatelessWidget {
                       child: BaseTextField(
                         textEditingController:
                             writeMealScreenProvider.noteController,
-                        hintText: 'Note',
+                        hintText:
+                            AppLocalizations.of(context).translate('note'),
                         textStyle: TextStyle(
                           fontSize: 20.0,
                         ),
@@ -137,7 +142,10 @@ class WriteMealScreen extends StatelessWidget {
                               : () async => await _onPressedDelete(
                                   context, appProvider, currentMealWithTags),
                           child: Text(
-                            isNew ? '' : 'Delete',
+                            isNew
+                                ? ''
+                                : AppLocalizations.of(context)
+                                    .translate('delete'),
                             style: TextStyle(
                               color: Theme.of(context).accentColor,
                               fontSize: 20.0,

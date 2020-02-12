@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app_localizations.dart';
 import '../../core/providers/write_meal_screen_provider.dart';
 import '../global/style_list.dart';
 import '../shared/widgets/base_button.dart';
@@ -19,7 +20,8 @@ class SubmitButtonWrapper extends StatelessWidget {
         ..removeCurrentSnackBar()
         ..showSnackBar(
           //todo 18n
-          StyleList.baseSnackBar(context, 'Meal was successfully saved'),
+          StyleList.baseSnackBar(
+              context, AppLocalizations.of(context).translate('wasSaved')),
         );
       await Future.delayed(
           Duration(milliseconds: 1500), () => Navigator.pop(context));
@@ -35,13 +37,13 @@ class SubmitButtonWrapper extends StatelessWidget {
       onError: (context, _) {
         return BaseButton(
           onPressed: null,
-          text: 'Error',
+          text: AppLocalizations.of(context).translate('error'),
         );
       },
       onWaitting: (context) {
         return BaseButton(
           onPressed: null,
-          text: 'Edit',
+          text: AppLocalizations.of(context).translate('edit'),
         );
       },
       onSuccess: (context, isUpdated) {
@@ -49,7 +51,9 @@ class SubmitButtonWrapper extends StatelessWidget {
           onPressed: () async =>
               await _onPressed(context, isUpdated, writeMealScreenProvider),
           //todo i18n
-          text: isUpdated ? 'Save' : 'Edit',
+          text: isUpdated
+              ? AppLocalizations.of(context).translate('save')
+              : AppLocalizations.of(context).translate('edit'),
         );
       },
     );

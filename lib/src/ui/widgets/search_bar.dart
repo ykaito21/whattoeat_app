@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+// import '../../app_localizations.dart';
 import '../../core/providers/meals_screen_provider.dart';
 import '../global/style_list.dart';
 
@@ -17,8 +18,7 @@ class SearchBar extends StatelessWidget {
       controller: mealsScreenProvider.searchController,
       decoration: InputDecoration(
         contentPadding: StyleList.horizontalPadding20,
-        //todo i18n
-        hintText: 'Meal Name',
+        // hintText: AppLocalizations.of(context).translate('searchHint'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(),

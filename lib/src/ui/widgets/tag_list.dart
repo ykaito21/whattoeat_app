@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/tag.dart';
+import '../../app_localizations.dart';
 import '../../core/services/database_service.dart' as db;
 import '../global/style_list.dart';
 import '../shared/platform/platform_alert_dialog.dart';
@@ -23,18 +24,22 @@ class TagList extends StatelessWidget {
   void _onLongPressed(BuildContext context, db.Tag tag) async {
     //todo i18n
     final bool res = await PlatformAlertDialog(
-      title: 'Do you want to delete "${tag.name}"?',
-      content: '${tag.name} will be deleted from all other meals',
-      defaultActionText: 'Yes',
-      cancelActionText: 'No',
+      title:
+          '${AppLocalizations.of(context).translate('alertDeleteTitle')} "${tag.name}"${AppLocalizations.of(context).translate('questionMark')} ',
+      content:
+          '"${tag.name}" ${AppLocalizations.of(context).translate('alertDeleteContentTag')}',
+      defaultActionText: AppLocalizations.of(context).translate('yes'),
+      cancelActionText: AppLocalizations.of(context).translate('no'),
     ).show(context);
     if (res) {
       await provider.onRemoveTag(tag);
       Scaffold.of(context)
         ..removeCurrentSnackBar()
         ..showSnackBar(
-          StyleList.baseSnackBar(context, '"${tag.name}" was deleted'),
+          StyleList.baseSnackBar(context,
+              '"${tag.name}" ${AppLocalizations.of(context).translate('wasDeleted')}'),
         );
+      //! bug cannot add the same tag if deleted it at the same screen
     }
   }
 
@@ -88,8 +93,7 @@ class TagList extends StatelessWidget {
         ? TagsTextField(
             onSubmitted: provider.onSubmitTag,
             autofocus: false,
-            //todo i18n
-            hintText: 'New Tag',
+            hintText: AppLocalizations.of(context).translate('newTag'),
             helperText: ' ',
             width: 80.0,
             maxLength: 10,
