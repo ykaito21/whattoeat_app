@@ -11,6 +11,11 @@ class StyleList {
     fontWeight: FontWeight.w900,
   );
 
+  static const TextStyle baseTitleTextStyle = const TextStyle(
+    fontSize: 24.0,
+    fontWeight: FontWeight.bold,
+  );
+
   static const EdgeInsets removePadding = const EdgeInsets.all(0.0);
 
   static const EdgeInsets allPadding10 = const EdgeInsets.all(10.0);

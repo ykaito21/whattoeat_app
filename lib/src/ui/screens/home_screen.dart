@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../global/routes/route_generator.dart';
 import 'meals_screen_wrapper.dart';
 import 'slot_screen_wrapper.dart';
 
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         tabBuilder: (context, index) {
           return CupertinoTabView(
             navigatorKey: _navigators[index],
-            // onGenerateRoute: RouteGenerator.generateRoute,
+            onGenerateRoute: RouteGenerator.generateRoute,
             builder: (context) {
               switch (index) {
                 case 0:

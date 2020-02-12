@@ -34,7 +34,7 @@ class SlotList extends StatelessWidget {
         child: Center(
           child: AutoSizeText(
             //todo i18n
-            'Nothing',
+            'Nothing...',
             style: TextStyle(
               color: Theme.of(context).accentColor,
               fontSize: 48.0,

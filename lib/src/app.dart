@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'core/providers/app_provider.dart';
 import 'ui/global/app_theme.dart';
+import 'ui/global/routes/route_generator.dart';
 import 'ui/screens/home_screen.dart';
 
 class App extends StatelessWidget {
@@ -23,6 +24,7 @@ class App extends StatelessWidget {
         theme: appThemes[AppTheme.Light],
         darkTheme: appThemes[AppTheme.Dark],
         home: HomeScreen(),
+        onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );
   }

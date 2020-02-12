@@ -3,16 +3,22 @@ import 'package:provider/provider.dart';
 import '../../core/providers/meals_screen_provider.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
+import '../global/routes/route_path.dart';
 import '../global/style_list.dart';
 import '../shared/widgets/base_button.dart';
 import '../shared/widgets/stream_wrapper.dart';
 import '../widgets/tag_list.dart';
 import '../widgets/search_bar.dart';
 import '../widgets/meal_tile.dart';
-import 'write_meal_screen_wrapper.dart';
 
 class MealsScreen extends StatelessWidget {
   const MealsScreen({Key key}) : super(key: key);
+
+  void _onPressedAdd(BuildContext context) {
+    FocusScope.of(context).unfocus();
+    Navigator.of(context, rootNavigator: true)
+        .pushNamed(RoutePath.writeMealScreen, arguments: null);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +71,11 @@ class MealsScreen extends StatelessWidget {
                     return Container();
                   },
                   onSuccess: (context, List<MealWithTags> mealWithTagsList) {
-                    //todo improve
                     if (mealWithTagsList.isEmpty)
                       return Center(
-                        child: Text('NO OPTION'),
+                        //todo i18n
+                        child: Text('No Meal Found',
+                            style: StyleList.baseTitleTextStyle),
                       );
                     return ListView.builder(
                       padding: StyleList.removePadding,
@@ -90,17 +97,8 @@ class MealsScreen extends StatelessWidget {
                   width: double.infinity,
                   padding: StyleList.horizontalPadding20,
                   child: BaseButton(
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
-                      Navigator.of(
-                        context,
-                        rootNavigator: true,
-                      ).push(
-                        MaterialPageRoute(
-                          builder: (context) => WriteMealScreenWrapper(),
-                        ),
-                      );
-                    },
+                    onPressed: () => _onPressedAdd(context),
+                    //todo i18n
                     text: 'Add',
                   ),
                 ),

@@ -3,9 +3,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
+import '../global/routes/route_path.dart';
 import '../global/style_list.dart';
 import '../shared/platform/platform_alert_dialog.dart';
-import '../screens/write_meal_screen_wrapper.dart';
 
 class MealTile extends StatelessWidget {
   final MealWithTags mealWithTags;
@@ -39,12 +39,19 @@ class MealTile extends StatelessWidget {
       );
   }
 
-  Future<void> _onPressedDelete(
+  Future<void> _onTapDelete(
       BuildContext context, AppProvider appProvider) async {
+    FocusScope.of(context).unfocus();
     final bool res = await _onWillDismiss(context, mealName);
     if (res) {
       _onDismissed(context, appProvider);
     }
+  }
+
+  void _onTapEdit(BuildContext context) {
+    FocusScope.of(context).unfocus();
+    Navigator.of(context, rootNavigator: true)
+        .pushNamed(RoutePath.writeMealScreen, arguments: mealWithTags);
   }
 
   @override
@@ -66,51 +73,25 @@ class MealTile extends StatelessWidget {
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
       child: ListTile(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-          Navigator.of(
-            context,
-            rootNavigator: true,
-          ).push(
-            MaterialPageRoute(
-              builder: (context) =>
-                  WriteMealScreenWrapper(mealWithTags: mealWithTags),
-            ),
-          );
-        },
+        onTap: () => _onTapEdit(context),
         contentPadding: StyleList.horizontalPadding20,
         title: Text(
           mealName,
-          style: TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-          ),
+          style: StyleList.baseTitleTextStyle,
         ),
         subtitle: Wrap(children: _tags(context, tags, appliedSlidableColor)),
       ),
       secondaryActions: <Widget>[
         //todo i18n
         IconSlideAction(
-          onTap: () {
-            //todo need focusscope? other places too? and routes
-            FocusScope.of(context).unfocus();
-            Navigator.of(
-              context,
-              rootNavigator: true,
-            ).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                    WriteMealScreenWrapper(mealWithTags: mealWithTags),
-              ),
-            );
-          },
+          onTap: () => _onTapEdit(context),
           color: Theme.of(context).accentColor,
           foregroundColor: appliedSlidableColor,
           icon: Icons.edit,
           caption: 'Edit',
         ),
         IconSlideAction(
-          onTap: () async => await _onPressedDelete(context, appProvider),
+          onTap: () async => await _onTapDelete(context, appProvider),
           color: Theme.of(context).accentColor,
           foregroundColor: appliedSlidableColor,
           icon: Icons.delete,
