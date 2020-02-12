@@ -32,4 +32,25 @@ class StyleList {
   static const SizedBox verticalBox20 = const SizedBox(
     height: 20.0,
   );
+
+  static SnackBar baseSnackBar(
+    BuildContext context,
+    String snackBarText,
+  ) {
+    return SnackBar(
+      behavior: SnackBarBehavior.floating,
+      duration: Duration(milliseconds: 1000),
+      backgroundColor: Theme.of(context).accentColor,
+      content: Text(
+        snackBarText,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 20.0,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : Colors.white,
+        ),
+      ),
+    );
+  }
 }

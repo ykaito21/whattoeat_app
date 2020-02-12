@@ -24,6 +24,7 @@ class SlotDisplay extends StatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: Container(
+                  //todo i18n
                   child: Text(
                     'You\'re',
                     style: TextStyle(

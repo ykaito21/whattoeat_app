@@ -52,12 +52,11 @@ class WriteMealScreenProvider {
 
   bool isNew() => currentMealWithTags == null;
 
-  String currentButtonText(bool isUpdated) => isUpdated ? 'Save' : 'Edit';
-  void onPressdButton(BuildContext context, bool isUpdated) => isUpdated
-      ? _updateMealWithTags()
-      : FocusScope.of(context).requestFocus(_nameFocusNode);
+//todo i18n
+  bool onPressdButton(BuildContext context, bool isUpdated) =>
+      isUpdated ? _updateMealWithTags() : _startEditing(context);
 
-  void _updateMealWithTags() {
+  bool _updateMealWithTags() {
     if (_nameController.text.length >= 1 && _nameController.text.length <= 50) {
       final MealWithTags newMealWithTags = MealWithTags(
         Meal(
@@ -68,10 +67,16 @@ class WriteMealScreenProvider {
         _writeMealScreenTagSubject.value,
       );
       _appDatabase.insertMealWithTags(newMealWithTags);
-      // clear text field or not
-      // navigator.pop if return yes
-      // add snackbar if error alert dialog
+      // _nameController.clear();
+      // _noteController.clear();
+      return true;
     }
+    return false;
+  }
+
+  bool _startEditing(context) {
+    FocusScope.of(context).requestFocus(_nameFocusNode);
+    return false;
   }
 
 // For tag
@@ -82,13 +87,9 @@ class WriteMealScreenProvider {
       );
       _appDatabase.tagDao.insertTag(tag);
     }
-    //todo alert or snackbar
   }
 
-  void onRemoveTag(Tag tag) {
-    _appDatabase.deleteTag(tag);
-    //todo alert or snackbar
-  }
+  void onRemoveTag(Tag tag) => _appDatabase.deleteTag(tag);
 
   List<Tag> _selectedTags = [];
 

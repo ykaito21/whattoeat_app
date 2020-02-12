@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/providers/write_meal_screen_provider.dart';
+import '../global/style_list.dart';
 import '../shared/widgets/base_button.dart';
 import '../shared/widgets/stream_wrapper.dart';
 
 class SubmitButtonWrapper extends StatelessWidget {
   const SubmitButtonWrapper({Key key}) : super(key: key);
+
+  Future<void> _onPressed(
+    BuildContext context,
+    bool isUpdated,
+    WriteMealScreenProvider writeMealScreenProvider,
+  ) async {
+    final bool res = writeMealScreenProvider.onPressdButton(context, isUpdated);
+    if (res) {
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+          //todo 18n
+          StyleList.baseSnackBar(context, 'Meal was successfully saved'),
+        );
+      await Future.delayed(
+          Duration(milliseconds: 1500), () => Navigator.pop(context));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +46,10 @@ class SubmitButtonWrapper extends StatelessWidget {
       },
       onSuccess: (context, isUpdated) {
         return BaseButton(
-          onPressed: () {
-            writeMealScreenProvider.onPressdButton(context, isUpdated);
-          },
-          text: writeMealScreenProvider.currentButtonText(isUpdated),
+          onPressed: () async =>
+              await _onPressed(context, isUpdated, writeMealScreenProvider),
+          //todo i18n
+          text: isUpdated ? 'Save' : 'Edit',
         );
       },
     );

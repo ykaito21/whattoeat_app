@@ -12,12 +12,13 @@ final appThemes = {
     primaryColor: ColorList.primaryCream,
     accentColor: ColorList.primaryOrange,
     scaffoldBackgroundColor: Colors.grey[50],
-    //* for cursor color
     cupertinoOverrideTheme: CupertinoThemeData(
+      //* for cursor color
       primaryColor: ColorList.primaryOrange,
+      //* for alertDialog color
+      brightness: Brightness.light,
     ),
     cursorColor: ColorList.primaryOrange,
-
     appBarTheme: AppBarTheme(
       color: Colors.grey[50],
       textTheme: TextTheme(
@@ -39,7 +40,10 @@ final appThemes = {
     accentColor: ColorList.primaryCream,
     scaffoldBackgroundColor: Colors.grey[850],
     cupertinoOverrideTheme: CupertinoThemeData(
+      //* for cursor color
       primaryColor: ColorList.primaryCream,
+      //* for alertDialog color
+      brightness: Brightness.dark,
     ),
     cursorColor: ColorList.primaryCream,
     appBarTheme: AppBarTheme(

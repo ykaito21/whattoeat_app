@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:whattoeat_app/src/ui/shared/platform/platform_alert_dialog.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/providers/write_meal_screen_provider.dart';
 import '../../core/services/database_service.dart';
@@ -12,12 +13,38 @@ import '../global/style_list.dart';
 class WriteMealScreen extends StatelessWidget {
   const WriteMealScreen({Key key}) : super(key: key);
 
+  Future<void> _onPressedDelete(
+    BuildContext context,
+    AppProvider appProvider,
+    MealWithTags currentMealWithTags,
+  ) async {
+    //todo i18n
+    final String mealName = currentMealWithTags.meal.name;
+    final bool res = await PlatformAlertDialog(
+      title: 'Do you want to delete "$mealName"?',
+      content: '$mealName will be deleted from list',
+      defaultActionText: 'Yes',
+      cancelActionText: 'No',
+    ).show(context);
+    if (res) {
+      appProvider.deleteMealWithTags(currentMealWithTags);
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+          StyleList.baseSnackBar(
+              context, '"$mealName" was successfully deleted'),
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final AppProvider appProvider =
         Provider.of<AppProvider>(context, listen: false);
     final WriteMealScreenProvider writeMealScreenProvider =
         Provider.of<WriteMealScreenProvider>(context, listen: false);
+    final MealWithTags currentMealWithTags =
+        writeMealScreenProvider.currentMealWithTags;
 
     final double deviseHeight = MediaQuery.of(context).size.height;
     final double topPadding = MediaQuery.of(context).padding.top;
@@ -45,6 +72,7 @@ class WriteMealScreen extends StatelessWidget {
               height: wrapperHeight,
               child: Column(
                 children: <Widget>[
+                  //todo i18n
                   Container(
                     constraints: BoxConstraints(
                       maxHeight: 160.0,
@@ -106,12 +134,8 @@ class WriteMealScreen extends StatelessWidget {
                         FlatButton(
                           onPressed: isNew
                               ? null
-                              : () {
-                                  appProvider.deleteMealWithTags(
-                                      writeMealScreenProvider
-                                          .currentMealWithTags);
-                                  //todo alert snack
-                                },
+                              : () async => await _onPressedDelete(
+                                  context, appProvider, currentMealWithTags),
                           child: Text(
                             isNew ? '' : 'Delete',
                             style: TextStyle(

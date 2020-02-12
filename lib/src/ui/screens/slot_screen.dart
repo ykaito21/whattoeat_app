@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:whattoeat_app/src/core/providers/slot_screen_provider.dart';
+import '../../core/providers/slot_screen_provider.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
 import '../widgets/tag_list.dart';

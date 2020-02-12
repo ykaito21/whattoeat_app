@@ -17,6 +17,7 @@ class SearchBar extends StatelessWidget {
       controller: mealsScreenProvider.searchController,
       decoration: InputDecoration(
         contentPadding: StyleList.horizontalPadding20,
+        //todo i18n
         hintText: 'Meal Name',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),

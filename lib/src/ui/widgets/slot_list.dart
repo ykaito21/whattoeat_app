@@ -50,7 +50,8 @@ class SlotList extends StatelessWidget {
     ];
   }
 
-  List<Widget> _mealList(context, List<MealWithTags> mealWithTagsList) {
+  List<Widget> _mealList(
+      BuildContext context, List<MealWithTags> mealWithTagsList) {
     return <Widget>[
       ...mealWithTagsList.map(
         (MealWithTags mealWithTags) {

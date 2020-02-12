@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/tag.dart';
 import '../../core/services/database_service.dart' as db;
-import '../../ui/global/color_list.dart';
+import '../global/style_list.dart';
+import '../shared/platform/platform_alert_dialog.dart';
 
 class TagList extends StatelessWidget {
   final List<db.Tag> tags;
@@ -19,6 +20,24 @@ class TagList extends StatelessWidget {
         assert(provider != null),
         super(key: key);
 
+  void _onLongPressed(BuildContext context, db.Tag tag) async {
+    //todo i18n
+    final bool res = await PlatformAlertDialog(
+      title: 'Do you want to delete "${tag.name}"?',
+      content: '${tag.name} will be deleted from all other meals',
+      defaultActionText: 'Yes',
+      cancelActionText: 'No',
+    ).show(context);
+    if (res) {
+      await provider.onRemoveTag(tag);
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+          StyleList.baseSnackBar(context, '"${tag.name}" was deleted'),
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Tags(
@@ -26,8 +45,7 @@ class TagList extends StatelessWidget {
       textField: _tagsTextField(context),
       itemBuilder: (int index) {
         final db.Tag tag = tags[index];
-        final bool isDarkMode =
-            Theme.of(context).primaryColor == ColorList.primaryCream;
+        final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
         return ItemTags(
           onPressed: (item) =>
               provider.onPressedTag(item.customData, item.active),
@@ -40,31 +58,34 @@ class TagList extends StatelessWidget {
           border: Border.all(style: BorderStyle.none),
           borderRadius: BorderRadius.circular(30),
           // border: Border.all(color: Theme.of(context).accentColor),
-          color: isDarkMode ? Colors.grey[200] : Colors.grey[700],
+          color: isDarkMode ? Colors.grey[700] : Colors.grey[200],
           activeColor: Theme.of(context).accentColor,
-          textColor: isDarkMode ? Colors.black : Colors.white,
-          textActiveColor: isDarkMode ? Colors.white : Colors.black,
+          textColor: isDarkMode ? Colors.white : Colors.black,
+          textActiveColor: isDarkMode ? Colors.black : Colors.white,
           textStyle: TextStyle(
             fontSize: 16,
           ),
           removeButton: editable
               ? ItemTagsRemoveButton(
                   backgroundColor:
-                      isDarkMode ? Colors.grey[200] : Colors.grey[700],
+                      isDarkMode ? Colors.grey[700] : Colors.grey[200],
                   color: Theme.of(context).accentColor,
                 )
               : null,
-          //todo need alert or snackbar
-          onRemoved: () => provider.onRemoveTag(tag),
+          // onRemoved: () async {
+          //   await provider.onRemoveTag(tag, context);
+          // },
+          onLongPressed: editable
+              ? (item) async => _onLongPressed(context, item.customData)
+              : null,
         );
       },
     );
   }
 
-  TagsTextField _tagsTextField(context) {
+  TagsTextField _tagsTextField(BuildContext context) {
     return editable
         ? TagsTextField(
-            //todo need alert or snackbar
             onSubmitted: provider.onSubmitTag,
             autofocus: false,
             //todo i18n
