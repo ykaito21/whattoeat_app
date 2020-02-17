@@ -22,12 +22,11 @@ class MealTile extends StatelessWidget {
 
   Future<bool> _onWillDismiss(context, String mealName) {
     return PlatformAlertDialog(
-      title:
-          '${AppLocalizations.of(context).translate('alertDeleteTitle')} "$mealName"${AppLocalizations.of(context).translate('questionMark')}',
+      title: StyleList.localizedAlertTtile(context, mealName),
       content:
-          '$mealName ${AppLocalizations.of(context).translate('alertDeleteContentMeal')}',
-      defaultActionText: AppLocalizations.of(context).translate('yes'),
-      cancelActionText: AppLocalizations.of(context).translate('no'),
+          '${AppLocalizations.of(context).translate('alertDeleteContentMeal')}',
+      defaultActionText: AppLocalizations.of(context).translate('delete'),
+      cancelActionText: AppLocalizations.of(context).translate('cancel'),
     ).show(context);
   }
 

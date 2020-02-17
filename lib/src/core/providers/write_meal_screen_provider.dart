@@ -5,9 +5,6 @@ import 'package:rxdart/rxdart.dart';
 
 import '../services/database_service.dart';
 
-//todo alert dialog and snackbar and try catch
-//todo when delete tag
-
 class WriteMealScreenProvider {
   final MealWithTags currentMealWithTags;
   AppDatabase _appDatabase;
@@ -52,7 +49,6 @@ class WriteMealScreenProvider {
 
   bool isNew() => currentMealWithTags == null;
 
-//todo i18n
   bool onPressdButton(BuildContext context, bool isUpdated) =>
       isUpdated ? _updateMealWithTags() : _startEditing(context);
 

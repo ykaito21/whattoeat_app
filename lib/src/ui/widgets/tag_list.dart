@@ -22,14 +22,12 @@ class TagList extends StatelessWidget {
         super(key: key);
 
   void _onLongPressed(BuildContext context, db.Tag tag) async {
-    //todo i18n
     final bool res = await PlatformAlertDialog(
-      title:
-          '${AppLocalizations.of(context).translate('alertDeleteTitle')} "${tag.name}"${AppLocalizations.of(context).translate('questionMark')} ',
+      title: StyleList.localizedAlertTtile(context, tag.name),
       content:
-          '"${tag.name}" ${AppLocalizations.of(context).translate('alertDeleteContentTag')}',
-      defaultActionText: AppLocalizations.of(context).translate('yes'),
-      cancelActionText: AppLocalizations.of(context).translate('no'),
+          '${AppLocalizations.of(context).translate('alertDeleteContentTag')}',
+      defaultActionText: AppLocalizations.of(context).translate('delete'),
+      cancelActionText: AppLocalizations.of(context).translate('cancel'),
     ).show(context);
     if (res) {
       await provider.onRemoveTag(tag);

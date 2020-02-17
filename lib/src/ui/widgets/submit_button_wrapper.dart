@@ -19,12 +19,11 @@ class SubmitButtonWrapper extends StatelessWidget {
       Scaffold.of(context)
         ..removeCurrentSnackBar()
         ..showSnackBar(
-          //todo 18n
           StyleList.baseSnackBar(
               context, AppLocalizations.of(context).translate('wasSaved')),
         );
       await Future.delayed(
-          Duration(milliseconds: 1500), () => Navigator.pop(context));
+          Duration(milliseconds: 1000), () => Navigator.pop(context));
     }
   }
 
@@ -50,7 +49,6 @@ class SubmitButtonWrapper extends StatelessWidget {
         return BaseButton(
           onPressed: () async =>
               await _onPressed(context, isUpdated, writeMealScreenProvider),
-          //todo i18n
           text: isUpdated
               ? AppLocalizations.of(context).translate('save')
               : AppLocalizations.of(context).translate('edit'),

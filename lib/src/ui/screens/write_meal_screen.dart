@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:whattoeat_app/src/ui/shared/platform/platform_alert_dialog.dart';
 import '../../app_localizations.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/providers/write_meal_screen_provider.dart';
 import '../../core/services/database_service.dart';
 import '../shared/widgets/base_text_field.dart';
 import '../shared/widgets/stream_wrapper.dart';
+import '../shared/platform/platform_alert_dialog.dart';
 import '../widgets/submit_button_wrapper.dart';
 import '../widgets/tag_list.dart';
 import '../global/style_list.dart';
@@ -21,12 +21,11 @@ class WriteMealScreen extends StatelessWidget {
   ) async {
     final String mealName = currentMealWithTags.meal.name;
     final bool res = await PlatformAlertDialog(
-      title:
-          '${AppLocalizations.of(context).translate('alertDeleteTitle')} "$mealName"${AppLocalizations.of(context).translate('questionMark')}',
+      title: StyleList.localizedAlertTtile(context, mealName),
       content:
-          '$mealName ${AppLocalizations.of(context).translate('alertDeleteContentMeal')}',
-      defaultActionText: AppLocalizations.of(context).translate('yes'),
-      cancelActionText: AppLocalizations.of(context).translate('no'),
+          '${AppLocalizations.of(context).translate('alertDeleteContentMeal')}',
+      defaultActionText: AppLocalizations.of(context).translate('delete'),
+      cancelActionText: AppLocalizations.of(context).translate('cancel'),
     ).show(context);
     if (res) {
       appProvider.deleteMealWithTags(currentMealWithTags);

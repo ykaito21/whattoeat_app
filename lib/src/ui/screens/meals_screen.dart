@@ -32,7 +32,7 @@ class MealsScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          AppLocalizations.of(context).translate('list'),
+          AppLocalizations.of(context).translate('mealList'),
           style: StyleList.appBarTitleStyle,
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../app_localizations.dart';
 
 class StyleList {
   static const TextStyle appBarTitleStyle = const TextStyle(
@@ -37,6 +38,17 @@ class StyleList {
   static const SizedBox verticalBox20 = const SizedBox(
     height: 20.0,
   );
+
+  static String localizedAlertTtile(BuildContext context, String content) {
+    switch (Localizations.localeOf(context).languageCode) {
+      case 'en':
+        return '${AppLocalizations.of(context).translate('alertDeleteTitle')} "$content"${AppLocalizations.of(context).translate('questionMark')}';
+      case 'ja':
+        return '"$content"${AppLocalizations.of(context).translate('alertDeleteTitle')}${AppLocalizations.of(context).translate('questionMark')}';
+      default:
+        return '${AppLocalizations.of(context).translate('alertDeleteTitle')} "$content"${AppLocalizations.of(context).translate('questionMark')}';
+    }
+  }
 
   static SnackBar baseSnackBar(
     BuildContext context,

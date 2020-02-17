@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by 海渡裕貴 on 2020/02/16.
+  Copyright © 2020 The Chromium Authors. All rights reserved.
+*/
+
+CFBundleDisplayName = "献立スロット";
+CFBundleName = "献立スロット";

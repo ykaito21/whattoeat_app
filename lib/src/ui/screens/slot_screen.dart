@@ -15,7 +15,6 @@ class SlotScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //todo ia8n
     final AppProvider appProvider =
         Provider.of<AppProvider>(context, listen: false);
     final SlotScreenProvider slotScreenProvider =
