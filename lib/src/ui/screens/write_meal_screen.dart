@@ -35,6 +35,8 @@ class WriteMealScreen extends StatelessWidget {
           StyleList.baseSnackBar(context,
               '"$mealName" ${AppLocalizations.of(context).translate('wasDeleted')}'),
         );
+      await Future.delayed(
+          Duration(milliseconds: 1000), () => Navigator.pop(context));
     }
   }
 
@@ -135,22 +137,25 @@ class WriteMealScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         SubmitButtonWrapper(),
-                        FlatButton(
-                          onPressed: isNew
-                              ? null
-                              : () async => await _onPressedDelete(
-                                  context, appProvider, currentMealWithTags),
-                          child: Text(
-                            isNew
-                                ? ''
-                                : AppLocalizations.of(context)
-                                    .translate('delete'),
-                            style: TextStyle(
-                              color: Theme.of(context).accentColor,
-                              fontSize: 20.0,
+                        //* for snackbar
+                        Builder(builder: (context) {
+                          return FlatButton(
+                            onPressed: isNew
+                                ? null
+                                : () async => await _onPressedDelete(
+                                    context, appProvider, currentMealWithTags),
+                            child: Text(
+                              isNew
+                                  ? ''
+                                  : AppLocalizations.of(context)
+                                      .translate('delete'),
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontSize: 20.0,
+                              ),
                             ),
-                          ),
-                        )
+                          );
+                        })
                       ],
                     ),
                   ),

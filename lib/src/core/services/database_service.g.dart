@@ -291,7 +291,7 @@ class $TagsTable extends Tags with TableInfo<$TagsTable, Tag> {
   GeneratedTextColumn get name => _name ??= _constructName();
   GeneratedTextColumn _constructName() {
     return GeneratedTextColumn('name', $tableName, false,
-        minTextLength: 1, maxTextLength: 10);
+        minTextLength: 1, maxTextLength: 20);
   }
 
   @override
