@@ -27,7 +27,6 @@
 
 ---
 
-
 ## Screens
 
 <!-- <div align="center">
@@ -40,6 +39,7 @@
 </div> -->
 
 ## Main Features
+
 - Record a meal with tags and note
 - Spin a slot with a list
 - Filter with keywords and tags
@@ -47,10 +47,12 @@
 - Localization(only Japanese)
 
 ## Main Stack
+
 - Flutter
 - Provider with Bloc like architecture
 - Moor for locally persistent data
 
-## About
+### About
 
-This is a small personal project. Any comments and reactions would be awesome!
+This is a small personal project. Any comments and reactions would be awesome! Please check
+[other projects](https://github.com/ykaito21/flutter_projects/blob/master/project_list.md) too.
