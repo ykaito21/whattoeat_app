@@ -5,7 +5,6 @@ import '../global/extensions.dart';
 import '../shared/platform/platform_alert_dialog.dart';
 
 class TagList extends StatelessWidget {
-  //TODO CHECK delete
   final List<db.Tag> tags;
   final provider;
   final bool editable;
@@ -21,7 +20,7 @@ class TagList extends StatelessWidget {
         assert(provider != null),
         super(key: key);
 
-  void _onLongPressed(BuildContext context, db.Tag tag) async {
+  Future<void> _onLongPressed(BuildContext context, db.Tag tag) async {
     final confirmation = await PlatformAlertDialog(
       title: context.localizeAlertTtile(tag.name, 'alertDeleteTitle'),
       content: context.translate('alertDeleteContentTag'),
@@ -72,9 +71,6 @@ class TagList extends StatelessWidget {
                   color: context.accentColor,
                 )
               : null,
-          // onRemoved: () async {
-          //   await provider.onRemoveTag(tag, context);
-          // },
           onLongPressed: editable
               ? (item) async => _onLongPressed(context, item.customData)
               : null,

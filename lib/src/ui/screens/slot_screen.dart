@@ -37,10 +37,10 @@ class SlotScreen extends StatelessWidget {
             Expanded(
               child: StreamWrapper<List<Tag>>(
                 stream: appProvider.streamTags(),
-                onWaitting: (context) {
+                onWaitting: (BuildContext context) {
                   return Container();
                 },
-                onSuccess: (context, List<Tag> tags) {
+                onSuccess: (BuildContext context, List<Tag> tags) {
                   return SingleChildScrollView(
                     padding: StyleList.verticalHorizontalpadding1020,
                     child: TagList(

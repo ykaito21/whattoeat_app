@@ -30,19 +30,19 @@ class SubmitButtonWrapper extends StatelessWidget {
     final writeMealScreenProvider = context.provider<WriteMealScreenProvider>();
     return StreamWrapper<bool>(
       stream: writeMealScreenProvider.checkUpdate(),
-      onError: (context, _) {
+      onError: (BuildContext context, _) {
         return BaseButton(
           onPressed: null,
           text: context.translate('error'),
         );
       },
-      onWaitting: (context) {
+      onWaitting: (BuildContext context) {
         return BaseButton(
           onPressed: null,
           text: context.translate('edit'),
         );
       },
-      onSuccess: (context, isUpdated) {
+      onSuccess: (BuildContext context, bool isUpdated) {
         return BaseButton(
           onPressed: () async =>
               await _onPressed(context, isUpdated, writeMealScreenProvider),

@@ -38,17 +38,6 @@ extension ContextExtensions on BuildContext {
 
   String get lang => Localizations.localeOf(this).languageCode;
 
-  String localizePrice(int price) {
-    switch (this.lang) {
-      case 'en':
-        return '\$${price / 100}';
-      case 'ja':
-        return '\¥$price';
-      default:
-        return '\$${price / 100}';
-    }
-  }
-
   String localizeAlertTtile(String content, String key) {
     switch (this.lang) {
       case 'en':
@@ -93,4 +82,11 @@ extension ContextExtensions on BuildContext {
   // Focus
   void get unfocus => FocusScope.of(this).unfocus();
   void requestFocus(FocusNode node) => FocusScope.of(this).requestFocus(node);
+
+  // TextStyle
+  TextStyle get baseTextStyleWithAccent => TextStyle(
+        color: this.accentColor,
+        fontSize: 48.0,
+        fontWeight: FontWeight.w900,
+      );
 }

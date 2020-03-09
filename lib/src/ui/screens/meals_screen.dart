@@ -45,10 +45,10 @@ class MealsScreen extends StatelessWidget {
               ),
               StreamWrapper<List<Tag>>(
                 stream: appProvider.streamTags(),
-                onWaitting: (context) {
+                onWaitting: (BuildContext context) {
                   return Container();
                 },
-                onSuccess: (context, List<Tag> tags) {
+                onSuccess: (BuildContext context, List<Tag> tags) {
                   return SingleChildScrollView(
                     padding: StyleList.verticalHorizontalpadding1020,
                     scrollDirection: Axis.horizontal,
@@ -65,10 +65,11 @@ class MealsScreen extends StatelessWidget {
                     keywords: mealsScreenProvider.streamSearchKeywords,
                     tags: mealsScreenProvider.streamMealsScreenSelectedTags,
                   ),
-                  onWaitting: (context) {
+                  onWaitting: (BuildContext context) {
                     return Container();
                   },
-                  onSuccess: (context, List<MealWithTags> mealWithTagsList) {
+                  onSuccess: (BuildContext context,
+                      List<MealWithTags> mealWithTagsList) {
                     if (mealWithTagsList.isEmpty)
                       return Center(
                         child: Text(context.translate('noMeal'),

@@ -88,7 +88,7 @@ class WriteMealScreen extends StatelessWidget {
                     height: 150.0,
                     child: StreamWrapper<List<Tag>>(
                       stream: appProvider.streamTags(),
-                      onSuccess: (context, List<Tag> tags) {
+                      onSuccess: (BuildContext context, List<Tag> tags) {
                         return SingleChildScrollView(
                           padding: StyleList.verticalHorizontalpadding1020,
                           child: TagList(

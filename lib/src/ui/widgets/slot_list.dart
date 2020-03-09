@@ -33,11 +33,7 @@ class SlotList extends StatelessWidget {
         child: Center(
           child: AutoSizeText(
             context.translate('slotEmpty'),
-            style: TextStyle(
-              color: context.accentColor,
-              fontSize: 48.0,
-              fontWeight: FontWeight.w900,
-            ),
+            style: context.baseTextStyleWithAccent,
             textAlign: TextAlign.center,
             minFontSize: 24,
             maxLines: 2,
@@ -57,11 +53,7 @@ class SlotList extends StatelessWidget {
             child: Center(
               child: AutoSizeText(
                 mealWithTags.meal.name,
-                style: TextStyle(
-                  color: context.accentColor,
-                  fontSize: 48.0,
-                  fontWeight: FontWeight.w900,
-                ),
+                style: context.baseTextStyleWithAccent,
                 textAlign: TextAlign.center,
                 minFontSize: 24,
                 maxLines: 2,

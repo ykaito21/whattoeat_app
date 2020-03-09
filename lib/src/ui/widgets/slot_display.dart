@@ -24,11 +24,7 @@ class SlotDisplay extends StatelessWidget {
                 child: Container(
                   child: Text(
                     context.translate('slotTitleFirst'),
-                    style: TextStyle(
-                      color: context.accentColor,
-                      fontSize: 48.0,
-                      fontWeight: FontWeight.w900,
-                    ),
+                    style: context.baseTextStyleWithAccent,
                   ),
                 ),
               ),
@@ -37,11 +33,7 @@ class SlotDisplay extends StatelessWidget {
                 child: Container(
                   child: Text(
                     context.translate('slotTitleSecond'),
-                    style: TextStyle(
-                      color: context.accentColor,
-                      fontSize: 48.0,
-                      fontWeight: FontWeight.w900,
-                    ),
+                    style: context.baseTextStyleWithAccent,
                   ),
                 ),
               ),
@@ -50,11 +42,7 @@ class SlotDisplay extends StatelessWidget {
                 child: Container(
                   child: Text(
                     context.translate('slotTitleThird'),
-                    style: TextStyle(
-                      color: context.accentColor,
-                      fontSize: 48.0,
-                      fontWeight: FontWeight.w900,
-                    ),
+                    style: context.baseTextStyleWithAccent,
                   ),
                 ),
               ),
@@ -67,8 +55,9 @@ class SlotDisplay extends StatelessWidget {
             stream: appProvider.streamMealWithTags(
               tags: slotScreenProvider.streamSlotScreenSelectedTags,
             ),
-            onWaitting: (context) => Container(),
-            onSuccess: (context, List<MealWithTags> mealWithTagsList) {
+            onWaitting: (BuildContext context) => Container(),
+            onSuccess:
+                (BuildContext context, List<MealWithTags> mealWithTagsList) {
               return SlotList(
                 mealWithTagsList: mealWithTagsList,
               );
