@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../global/routes/route_generator.dart';
+import '../global/extensions.dart';
 import 'meals_screen_wrapper.dart';
 import 'slot_screen_wrapper.dart';
 
@@ -45,13 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
         tabBar: CupertinoTabBar(
           border: Border(
             top: BorderSide(
-              color: Theme.of(context).primaryColor,
+              color: context.primaryColor,
               width: 0.0, // One physical pixel.
               style: BorderStyle.solid,
             ),
           ),
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          activeColor: Theme.of(context).accentColor,
+          backgroundColor: context.scaffoldBackgroundColor,
+          activeColor: context.accentColor,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -67,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   .currentState
                   .popUntil((route) => route.isFirst);
             }
-            //? need setState?
             _currentIndex = index;
           },
         ),

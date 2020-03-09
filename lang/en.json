@@ -26,6 +26,7 @@
   "yes": "Yes",
   "no": "No",
   "wasDeleted": "was successfly deleted.",
-  "wasSaved": "Meal was successfully saved.",
-  "alertDeleteContentMeal": "Deleting this meal will also delete its data from your list."
+  "wasSaved": "was successfully saved.",
+  "alertDeleteContentMeal": "Deleting this meal will also delete its data from your list.",
+  "meal": "Meal"
 }

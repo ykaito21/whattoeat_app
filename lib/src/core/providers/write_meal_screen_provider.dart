@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:moor/moor.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../services/database_service.dart';
 
 class WriteMealScreenProvider {
@@ -47,7 +46,7 @@ class WriteMealScreenProvider {
     _checkUpdateSubject.close();
   }
 
-  bool isNew() => currentMealWithTags == null;
+  bool get isNew => currentMealWithTags == null;
 
   bool onPressdButton(BuildContext context, bool isUpdated) =>
       isUpdated ? _updateMealWithTags() : _startEditing(context);

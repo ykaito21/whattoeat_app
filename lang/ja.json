@@ -26,6 +26,7 @@
   "yes": "はい",
   "no": "いいえ",
   "wasDeleted": "を削除しました。",
-  "wasSaved": "献立を保存しました。",
-  "alertDeleteContentMeal": "この献立を削除すると、献立はリストから削除されます。"
+  "wasSaved": "を保存しました。",
+  "alertDeleteContentMeal": "この献立を削除すると、献立はリストから削除されます。",
+  "meal": "献立"
 }

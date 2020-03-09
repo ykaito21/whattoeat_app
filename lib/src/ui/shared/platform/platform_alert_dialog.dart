@@ -1,8 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import '../../global/extensions.dart';
 import 'platform_alert_dialog_action.dart';
 import 'platform_widget.dart';
 
@@ -61,7 +60,7 @@ class PlatformAlertDialog extends PlatformWidget {
             //   color: Theme.of(context).accentColor,
             // ),
           ),
-          onPressed: () => Navigator.pop(context, false),
+          onPressed: () => context.pop(false),
         ),
       PlatformAlertDialogAction(
         child: Text(
@@ -70,7 +69,7 @@ class PlatformAlertDialog extends PlatformWidget {
           //   color: Theme.of(context).accentColor,
           // ),
         ),
-        onPressed: () => Navigator.pop(context, true),
+        onPressed: () => context.pop(true),
       )
     ];
   }

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../app_localizations.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/providers/write_meal_screen_provider.dart';
 import '../../core/services/database_service.dart';
+import '../global/style_list.dart';
+import '../global/extensions.dart';
 import '../shared/widgets/base_text_field.dart';
 import '../shared/widgets/stream_wrapper.dart';
 import '../shared/platform/platform_alert_dialog.dart';
 import '../widgets/submit_button_wrapper.dart';
 import '../widgets/tag_list.dart';
-import '../global/style_list.dart';
 
 class WriteMealScreen extends StatelessWidget {
   const WriteMealScreen({Key key}) : super(key: key);
@@ -20,56 +19,44 @@ class WriteMealScreen extends StatelessWidget {
     MealWithTags currentMealWithTags,
   ) async {
     final String mealName = currentMealWithTags.meal.name;
-    final bool res = await PlatformAlertDialog(
-      title: StyleList.localizedAlertTtile(context, mealName),
-      content:
-          '${AppLocalizations.of(context).translate('alertDeleteContentMeal')}',
-      defaultActionText: AppLocalizations.of(context).translate('delete'),
-      cancelActionText: AppLocalizations.of(context).translate('cancel'),
+    final confirmation = await PlatformAlertDialog(
+      title: context.localizeAlertTtile(mealName, 'alertDeleteTitle'),
+      content: context.translate('alertDeleteContentMeal'),
+      defaultActionText: context.translate('delete'),
+      cancelActionText: context.translate('cancel'),
     ).show(context);
-    if (res) {
+    if (confirmation) {
       appProvider.deleteMealWithTags(currentMealWithTags);
       Scaffold.of(context)
         ..removeCurrentSnackBar()
         ..showSnackBar(
-          StyleList.baseSnackBar(context,
-              '"$mealName" ${AppLocalizations.of(context).translate('wasDeleted')}'),
+          context.baseSnackBar(context.localizeMessage(mealName, 'wasDeleted')),
         );
-      await Future.delayed(
-          Duration(milliseconds: 1000), () => Navigator.pop(context));
+      await Future.delayed(Duration(milliseconds: 1000), () => context.pop());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final AppProvider appProvider =
-        Provider.of<AppProvider>(context, listen: false);
-    final WriteMealScreenProvider writeMealScreenProvider =
-        Provider.of<WriteMealScreenProvider>(context, listen: false);
-    final MealWithTags currentMealWithTags =
-        writeMealScreenProvider.currentMealWithTags;
-
-    final double deviseHeight = MediaQuery.of(context).size.height;
-    final double topPadding = MediaQuery.of(context).padding.top;
-    final double bottomPadding = MediaQuery.of(context).padding.bottom;
+    final appProvider = context.provider<AppProvider>();
+    final writeMealScreenProvider = context.provider<WriteMealScreenProvider>();
+    final currentMealWithTags = writeMealScreenProvider.currentMealWithTags;
     // kToolbarHeight
     final double appBarHeight = 56.0;
     // _kTabBarHeight
     // final double bottomNavHeight = 50.0;
-    final double wrapperHeight =
-        deviseHeight - (topPadding + bottomPadding + appBarHeight);
-    final bool isNew = writeMealScreenProvider.isNew();
+    final double wrapperHeight = context.height -
+        (context.topPadding + context.bottomPadding + appBarHeight);
+    final isNew = writeMealScreenProvider.isNew;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          isNew
-              ? AppLocalizations.of(context).translate('newMeal')
-              : AppLocalizations.of(context).translate('editMeal'),
+          isNew ? context.translate('newMeal') : context.translate('editMeal'),
           style: StyleList.appBarTitleStyle,
         ),
       ),
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => context.unfocus,
         child: Container(
           width: double.infinity,
           child: SingleChildScrollView(
@@ -87,8 +74,7 @@ class WriteMealScreen extends StatelessWidget {
                           writeMealScreenProvider.nameController,
                       onChanged: (String newVal) => writeMealScreenProvider
                           .checkTextFieldUpdate(newVal, 'name'),
-                      hintText:
-                          AppLocalizations.of(context).translate('mealName'),
+                      hintText: context.translate('mealName'),
                       textStyle: TextStyle(
                         fontSize: 40.0,
                         fontWeight: FontWeight.w900,
@@ -124,8 +110,7 @@ class WriteMealScreen extends StatelessWidget {
                             writeMealScreenProvider.noteController,
                         onChanged: (String newVal) => writeMealScreenProvider
                             .checkTextFieldUpdate(newVal, 'note'),
-                        hintText:
-                            AppLocalizations.of(context).translate('note'),
+                        hintText: context.translate('note'),
                         textStyle: TextStyle(
                           fontSize: 20.0,
                         ),
@@ -149,12 +134,9 @@ class WriteMealScreen extends StatelessWidget {
                                 : () async => await _onPressedDelete(
                                     context, appProvider, currentMealWithTags),
                             child: Text(
-                              isNew
-                                  ? ''
-                                  : AppLocalizations.of(context)
-                                      .translate('delete'),
+                              isNew ? '' : context.translate('delete'),
                               style: TextStyle(
-                                color: Theme.of(context).accentColor,
+                                color: context.accentColor,
                                 fontSize: 20.0,
                               ),
                             ),

@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../app_localizations.dart';
+import '../global/extensions.dart';
 import '../../core/providers/slot_screen_provider.dart';
 import '../../core/services/database_service.dart';
 
@@ -15,8 +14,7 @@ class SlotList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SlotScreenProvider slotScreenProvider =
-        Provider.of<SlotScreenProvider>(context, listen: false);
+    final slotScreenProvider = context.provider<SlotScreenProvider>();
     return ListWheelScrollView.useDelegate(
       controller: slotScreenProvider.slotScrollController,
       physics: FixedExtentScrollPhysics(),
@@ -29,14 +27,14 @@ class SlotList extends StatelessWidget {
     );
   }
 
-  List<Widget> _emptyList(context) {
+  List<Widget> _emptyList(BuildContext context) {
     return <Widget>[
       Container(
         child: Center(
           child: AutoSizeText(
-            AppLocalizations.of(context).translate('slotEmpty'),
+            context.translate('slotEmpty'),
             style: TextStyle(
-              color: Theme.of(context).accentColor,
+              color: context.accentColor,
               fontSize: 48.0,
               fontWeight: FontWeight.w900,
             ),
@@ -60,7 +58,7 @@ class SlotList extends StatelessWidget {
               child: AutoSizeText(
                 mealWithTags.meal.name,
                 style: TextStyle(
-                  color: Theme.of(context).accentColor,
+                  color: context.accentColor,
                   fontSize: 48.0,
                   fontWeight: FontWeight.w900,
                 ),

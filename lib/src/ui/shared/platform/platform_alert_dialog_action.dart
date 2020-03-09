@@ -16,7 +16,7 @@ class PlatformAlertDialogAction extends PlatformWidget {
     return CupertinoDialogAction(
       child: child,
       onPressed: onPressed,
-      // textStyle: TextStyle(color: Theme.of(context).accentColor),
+      // textStyle: TextStyle(color: context.accentColor),
     );
   }
 
@@ -25,7 +25,7 @@ class PlatformAlertDialogAction extends PlatformWidget {
     return FlatButton(
       child: child,
       onPressed: onPressed,
-      // textColor: Theme.of(context).accentColor,
+      // textColor: context.accentColor,
     );
   }
 }

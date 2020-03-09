@@ -6,6 +6,8 @@ import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
 import '../global/routes/route_path.dart';
 import '../global/style_list.dart';
+import '../global/extensions.dart';
+
 import '../shared/platform/platform_alert_dialog.dart';
 
 class MealTile extends StatelessWidget {
@@ -20,54 +22,47 @@ class MealTile extends StatelessWidget {
   String get mealName => mealWithTags.meal.name;
   List<Tag> get tags => mealWithTags.tags;
 
-  Future<bool> _onWillDismiss(context, String mealName) {
+  Future<bool> _onWillDismiss(context) {
     return PlatformAlertDialog(
-      title: StyleList.localizedAlertTtile(context, mealName),
-      content:
-          '${AppLocalizations.of(context).translate('alertDeleteContentMeal')}',
-      defaultActionText: AppLocalizations.of(context).translate('delete'),
-      cancelActionText: AppLocalizations.of(context).translate('cancel'),
+      title: context.localizeAlertTtile(mealName, 'alertDeleteTitle'),
+      content: context.translate('alertDeleteContentMeal'),
+      defaultActionText: context.translate('delete'),
+      cancelActionText: context.translate('cancel'),
     ).show(context);
   }
 
-  void _onDismissed(BuildContext context, AppProvider appProvider) {
-    appProvider.deleteMealWithTags(mealWithTags);
+  void _onDismissed(BuildContext context, AppProvider appProvider) async {
+    await appProvider.deleteMealWithTags(mealWithTags);
     Scaffold.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(
-        StyleList.baseSnackBar(context,
-            '"$mealName" ${AppLocalizations.of(context).translate('wasDeleted')}'),
+        context.baseSnackBar(context.localizeMessage(mealName, 'wasDeleted')),
       );
   }
 
   Future<void> _onTapDelete(
       BuildContext context, AppProvider appProvider) async {
-    FocusScope.of(context).unfocus();
-    final bool res = await _onWillDismiss(context, mealName);
-    if (res) {
+    context.unfocus;
+    final confirmation = await _onWillDismiss(context);
+    if (confirmation) {
       _onDismissed(context, appProvider);
     }
   }
 
   void _onTapEdit(BuildContext context) {
-    FocusScope.of(context).unfocus();
-    Navigator.of(context, rootNavigator: true)
-        .pushNamed(RoutePath.writeMealScreen, arguments: mealWithTags);
+    context.unfocus;
+    context.pushNamed(RoutePath.writeMealScreen,
+        arguments: mealWithTags, rootNavigator: true);
   }
 
   @override
   Widget build(BuildContext context) {
-    final AppProvider appProvider =
-        Provider.of<AppProvider>(context, listen: false);
-    final Color appliedSlidableColor =
-        Theme.of(context).brightness == Brightness.dark
-            ? Colors.black
-            : Colors.white;
+    final appProvider = context.provider<AppProvider>();
     return Slidable(
       //* to work with SlidableDismissal and CupertinoTabView
       key: ValueKey(mealWithTags.meal),
       dismissal: SlidableDismissal(
-        onWillDismiss: (actionType) => _onWillDismiss(context, mealName),
+        onWillDismiss: (actionType) => _onWillDismiss(context),
         child: SlidableDrawerDismissal(),
         onDismissed: (actionType) => _onDismissed(context, appProvider),
       ),
@@ -80,29 +75,28 @@ class MealTile extends StatelessWidget {
           mealName,
           style: StyleList.baseTitleTextStyle,
         ),
-        subtitle: Wrap(children: _tags(context, tags, appliedSlidableColor)),
+        subtitle: Wrap(children: _tags(context, tags)),
       ),
       secondaryActions: <Widget>[
         IconSlideAction(
           onTap: () => _onTapEdit(context),
-          color: Theme.of(context).accentColor,
-          foregroundColor: appliedSlidableColor,
+          color: context.accentColor,
+          foregroundColor: context.appliedSlidableColor,
           icon: Icons.edit,
-          caption: AppLocalizations.of(context).translate('edit'),
+          caption: context.translate('edit'),
         ),
         IconSlideAction(
           onTap: () async => await _onTapDelete(context, appProvider),
-          color: Theme.of(context).accentColor,
-          foregroundColor: appliedSlidableColor,
+          color: context.accentColor,
+          foregroundColor: context.appliedSlidableColor,
           icon: Icons.delete,
-          caption: AppLocalizations.of(context).translate('delete'),
+          caption: context.translate('delete'),
         ),
       ],
     );
   }
 
-  List<Widget> _tags(
-      BuildContext context, List<Tag> tags, Color appliedSlidableColor) {
+  List<Widget> _tags(BuildContext context, List<Tag> tags) {
     return <Widget>[
       ...tags.map(
         (tag) => Padding(
@@ -110,13 +104,13 @@ class MealTile extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
             decoration: BoxDecoration(
-              color: Theme.of(context).accentColor,
+              color: context.accentColor,
               borderRadius: BorderRadius.circular(30),
             ),
             child: Text(
               tag.name,
               style: TextStyle(
-                color: appliedSlidableColor,
+                color: context.appliedSlidableColor,
                 fontWeight: FontWeight.bold,
               ),
             ),

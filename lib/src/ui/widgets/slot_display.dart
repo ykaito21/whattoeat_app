@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../app_localizations.dart';
 import '../../core/providers/slot_screen_provider.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
+import '../global/extensions.dart';
 import '../shared/widgets/stream_wrapper.dart';
 import '../widgets/slot_list.dart';
 
@@ -12,10 +11,8 @@ class SlotDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppProvider appProvider =
-        Provider.of<AppProvider>(context, listen: false);
-    final SlotScreenProvider slotScreenProvider =
-        Provider.of<SlotScreenProvider>(context, listen: false);
+    final appProvider = context.provider<AppProvider>();
+    final slotScreenProvider = context.provider<SlotScreenProvider>();
     return Column(
       children: <Widget>[
         Container(
@@ -26,9 +23,9 @@ class SlotDisplay extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Container(
                   child: Text(
-                    AppLocalizations.of(context).translate('slotTitleFirst'),
+                    context.translate('slotTitleFirst'),
                     style: TextStyle(
-                      color: Theme.of(context).accentColor,
+                      color: context.accentColor,
                       fontSize: 48.0,
                       fontWeight: FontWeight.w900,
                     ),
@@ -39,9 +36,9 @@ class SlotDisplay extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Container(
                   child: Text(
-                    AppLocalizations.of(context).translate('slotTitleSecond'),
+                    context.translate('slotTitleSecond'),
                     style: TextStyle(
-                      color: Theme.of(context).accentColor,
+                      color: context.accentColor,
                       fontSize: 48.0,
                       fontWeight: FontWeight.w900,
                     ),
@@ -52,9 +49,9 @@ class SlotDisplay extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: Container(
                   child: Text(
-                    AppLocalizations.of(context).translate('slotTitleThird'),
+                    context.translate('slotTitleThird'),
                     style: TextStyle(
-                      color: Theme.of(context).accentColor,
+                      color: context.accentColor,
                       fontSize: 48.0,
                       fontWeight: FontWeight.w900,
                     ),

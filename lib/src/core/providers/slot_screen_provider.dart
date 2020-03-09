@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../services/database_service.dart';
 
 class SlotScreenProvider {

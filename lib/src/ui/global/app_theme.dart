@@ -20,6 +20,8 @@ final appThemes = {
     ),
     cursorColor: ColorList.primaryOrange,
     appBarTheme: AppBarTheme(
+      //* for status bar
+      brightness: Brightness.light,
       color: Colors.grey[50],
       textTheme: TextTheme(
         title: TextStyle(
@@ -47,6 +49,8 @@ final appThemes = {
     ),
     cursorColor: ColorList.primaryCream,
     appBarTheme: AppBarTheme(
+      //* for status bar
+      brightness: Brightness.dark,
       color: Colors.grey[850],
       textTheme: TextTheme(
         title: TextStyle(

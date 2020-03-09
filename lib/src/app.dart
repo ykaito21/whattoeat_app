@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-
-import 'app_localizations.dart';
 import 'core/providers/app_provider.dart';
 import 'ui/global/app_theme.dart';
 import 'ui/global/routes/route_generator.dart';
+import 'app_localizations.dart';
+
 // import 'ui/screens/home_screen.dart';
 
 class App extends StatelessWidget {
@@ -13,7 +13,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO EXTENSION
     return MultiProvider(
       providers: [
         Provider(
@@ -26,7 +25,6 @@ class App extends StatelessWidget {
         title: 'What2Eat',
         theme: appThemes[AppTheme.Light],
         darkTheme: appThemes[AppTheme.Dark],
-        // home: HomeScreen(),
         onGenerateRoute: RouteGenerator.generateRoute,
         supportedLocales: const [
           Locale('en', 'US'),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../app_localizations.dart';
 import '../../core/providers/write_meal_screen_provider.dart';
-import '../global/style_list.dart';
+import '../global/extensions.dart';
 import '../shared/widgets/base_button.dart';
 import '../shared/widgets/stream_wrapper.dart';
 
@@ -14,44 +12,42 @@ class SubmitButtonWrapper extends StatelessWidget {
     bool isUpdated,
     WriteMealScreenProvider writeMealScreenProvider,
   ) async {
-    final bool res = writeMealScreenProvider.onPressdButton(context, isUpdated);
+    final res = writeMealScreenProvider.onPressdButton(context, isUpdated);
     if (res) {
       Scaffold.of(context)
         ..removeCurrentSnackBar()
         ..showSnackBar(
-          StyleList.baseSnackBar(
-              context, AppLocalizations.of(context).translate('wasSaved')),
+          context.baseSnackBar(
+            context.localizeMessage(context.translate('meal'), 'wasSaved'),
+          ),
         );
-      await Future.delayed(
-          Duration(milliseconds: 1000), () => Navigator.pop(context));
+      await Future.delayed(Duration(milliseconds: 1000), () => context.pop());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final WriteMealScreenProvider writeMealScreenProvider =
-        Provider.of<WriteMealScreenProvider>(context, listen: false);
+    final writeMealScreenProvider = context.provider<WriteMealScreenProvider>();
     return StreamWrapper<bool>(
       stream: writeMealScreenProvider.checkUpdate(),
       onError: (context, _) {
         return BaseButton(
           onPressed: null,
-          text: AppLocalizations.of(context).translate('error'),
+          text: context.translate('error'),
         );
       },
       onWaitting: (context) {
         return BaseButton(
           onPressed: null,
-          text: AppLocalizations.of(context).translate('edit'),
+          text: context.translate('edit'),
         );
       },
       onSuccess: (context, isUpdated) {
         return BaseButton(
           onPressed: () async =>
               await _onPressed(context, isUpdated, writeMealScreenProvider),
-          text: isUpdated
-              ? AppLocalizations.of(context).translate('save')
-              : AppLocalizations.of(context).translate('edit'),
+          text:
+              isUpdated ? context.translate('save') : context.translate('edit'),
         );
       },
     );

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 // import '../../../core/services/database_service.dart';
-import '../../../app_localizations.dart';
 import '../../screens/home_screen.dart';
 import '../../screens/write_meal_screen_wrapper.dart';
-
 import '../style_list.dart';
+import '../extensions.dart';
 import 'route_path.dart';
 
 class RouteGenerator {
@@ -35,7 +34,7 @@ class RouteGenerator {
           appBar: AppBar(),
           body: Center(
             child: Text(
-              AppLocalizations.of(context).translate('error'),
+              context.translate('error'),
               style: StyleList.baseTitleTextStyle,
             ),
           ),

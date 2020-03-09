@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'platform_alert_dialog.dart';
 
 class PlatformExceptionAlertDialog extends PlatformAlertDialog {

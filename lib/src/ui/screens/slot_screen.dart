@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../app_localizations.dart';
 import '../../core/providers/slot_screen_provider.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
-import '../widgets/tag_list.dart';
-import '../widgets/slot_display.dart';
+import '../global/style_list.dart';
+import '../global/extensions.dart';
 import '../shared/widgets/base_button.dart';
 import '../shared/widgets/stream_wrapper.dart';
-import '../global/style_list.dart';
+import '../widgets/tag_list.dart';
+import '../widgets/slot_display.dart';
 
 class SlotScreen extends StatelessWidget {
   const SlotScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final AppProvider appProvider =
-        Provider.of<AppProvider>(context, listen: false);
-    final SlotScreenProvider slotScreenProvider =
-        Provider.of<SlotScreenProvider>(context, listen: false);
+    final appProvider = context.provider<AppProvider>();
+    final slotScreenProvider = context.provider<SlotScreenProvider>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -62,7 +59,7 @@ class SlotScreen extends StatelessWidget {
                 padding: StyleList.horizontalPadding20,
                 child: BaseButton(
                   onPressed: slotScreenProvider.slotStart,
-                  text: AppLocalizations.of(context).translate('spin'),
+                  text: context.translate('spin'),
                 ),
               ),
             ),
@@ -75,7 +72,7 @@ class SlotScreen extends StatelessWidget {
   List<Widget> _appBarTitle(BuildContext context) {
     return <Widget>[
       Text(
-        AppLocalizations.of(context).translate('appTitleFirst'),
+        context.translate('appTitleFirst'),
         style: StyleList.appBarTitleStyle,
       ),
       ClipRect(
@@ -84,7 +81,7 @@ class SlotScreen extends StatelessWidget {
             alignment: Alignment.center,
             heightFactor: 0.6,
             child: Text(
-              AppLocalizations.of(context).translate('appTitleSecond'),
+              context.translate('appTitleSecond'),
               style: StyleList.appBarTitleStyle.copyWith(
                 height: 0.9,
               ),
@@ -93,7 +90,7 @@ class SlotScreen extends StatelessWidget {
         ),
       ),
       Text(
-        AppLocalizations.of(context).translate('appTitleThird'),
+        context.translate('appTitleThird'),
         style: StyleList.appBarTitleStyle,
       ),
     ];

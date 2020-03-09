@@ -19,9 +19,16 @@ extension ContextExtensions on BuildContext {
   Color get primaryColor => Theme.of(this).primaryColor;
   Color get accentColor => Theme.of(this).accentColor;
   Color get scaffoldBackgroundColor => Theme.of(this).scaffoldBackgroundColor;
+  Color get appliedSlidableColor => Theme.of(this).brightness == Brightness.dark
+      ? Colors.black
+      : Colors.white;
+  bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
 
 // Device Size
+  double get height => MediaQuery.of(this).size.height;
   double get width => MediaQuery.of(this).size.width;
+  double get topPadding => MediaQuery.of(this).padding.top;
+  double get bottomPadding => MediaQuery.of(this).padding.bottom;
 
   // Provider
   T provider<T>({bool listen = false}) => Provider.of<T>(this, listen: listen);
