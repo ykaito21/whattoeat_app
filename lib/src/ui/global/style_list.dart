@@ -25,11 +25,8 @@ class StyleList {
     horizontal: 20.0,
   );
 
-  static const EdgeInsets verticalHorizontalPaddding1020 =
+  static const EdgeInsets verticalHorizontalpadding1020 =
       const EdgeInsets.symmetric(vertical: 10, horizontal: 20);
-
-  static const EdgeInsets verticalHorizontalPaddding25 =
-      const EdgeInsets.symmetric(vertical: 2, horizontal: 5);
 
   static const SizedBox verticalBox10 = const SizedBox(
     height: 10.0,

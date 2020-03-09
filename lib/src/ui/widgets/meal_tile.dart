@@ -108,7 +108,7 @@ class MealTile extends StatelessWidget {
         (tag) => Padding(
           padding: const EdgeInsets.only(right: 5),
           child: Container(
-            padding: StyleList.verticalHorizontalPaddding25,
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
             decoration: BoxDecoration(
               color: Theme.of(context).accentColor,
               borderRadius: BorderRadius.circular(30),

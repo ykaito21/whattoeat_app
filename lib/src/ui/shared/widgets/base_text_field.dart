@@ -3,6 +3,7 @@ import '../../global/style_list.dart';
 
 class BaseTextField extends StatelessWidget {
   final TextEditingController textEditingController;
+  final Function onChanged;
   final String hintText;
   final TextStyle textStyle;
   final int maxLength;
@@ -10,11 +11,13 @@ class BaseTextField extends StatelessWidget {
   const BaseTextField({
     Key key,
     @required this.textEditingController,
+    @required this.onChanged,
     @required this.hintText,
     @required this.textStyle,
     this.maxLength,
     this.focusNode,
   })  : assert(textEditingController != null),
+        assert(onChanged != null),
         assert(hintText != null),
         assert(textStyle != null),
         super(key: key);
@@ -23,6 +26,7 @@ class BaseTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: textEditingController,
+      onChanged: onChanged,
       expands: true,
       maxLines: null,
       maxLength: maxLength,

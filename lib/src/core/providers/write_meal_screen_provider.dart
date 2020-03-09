@@ -110,7 +110,29 @@ class WriteMealScreenProvider {
     return listEquals(sortedInitialTags, sortedCurrentTags);
   }
 
-//? need to use CombineLatest here?
+  // check textfield update with onChanged
+  void checkTextFieldUpdate(String newVal, String field) {
+    switch (field) {
+      case 'name':
+        if (newVal != _initialName) {
+          _checkUpdateSubject.add(true);
+        } else {
+          _checkUpdateSubject.add(false);
+        }
+
+        break;
+      case 'note':
+        if (newVal != _initialNote) {
+          _checkUpdateSubject.add(true);
+        } else {
+          _checkUpdateSubject.add(false);
+        }
+        break;
+      default:
+        _checkUpdateSubject.add(false);
+    }
+  }
+
   Stream<bool> checkUpdate() {
     return CombineLatestStream.combine2<bool, List<Tag>, bool>(
       isUpdated,

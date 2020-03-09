@@ -9,11 +9,11 @@ import 'ui/global/routes/route_generator.dart';
 // import 'ui/screens/home_screen.dart';
 
 class App extends StatelessWidget {
-  //todo check English
   const App({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    //TODO EXTENSION
     return MultiProvider(
       providers: [
         Provider(

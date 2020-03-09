@@ -18,10 +18,10 @@
     <a href="" target="_blank"><img  src="pub_assets/google-play-badge.png"</img></a>
   </div>
 </div> -->
-
-<!-- <div align="center">
-  <div style=" width:200px;">
-    <img src="pub_assets/screenshots//whattoeat.gif">
+<!--
+<div align="center">
+  <div style="align-items: center; display: flex; justify-content: center;">
+    <img src="pub_assets/screenshots/whattoeat.gif" width="200">
   </div>
 </div> -->
 
@@ -30,11 +30,15 @@
 ## Screens
 
 <!-- <div align="center">
-  <div style="align-items: center; display: flex; justify-content: center;">
+  <div style="align-items: center; display: flex; justify-content: space-evenly; padding-bottom: 15px;">
     <img src="pub_assets/screenshots/screenshot_1.png" width="200">
-    <img src="pub_assets/screenshots/screenshot_3.png" width="200">
     <img src="pub_assets/screenshots/screenshot_2.png" width="200">
+    <img src="pub_assets/screenshots/screenshot_3.png" width="200">
+  </div>
+  <div style="align-items: center; display: flex; justify-content: space-evenly;">
     <img src="pub_assets/screenshots/screenshot_4.png" width="200">
+    <img src="pub_assets/screenshots/screenshot_5.png" width="200">
+    <img src="pub_assets/screenshots/screenshot_6.png" width="200">
   </div>
 </div> -->
 
@@ -54,5 +58,5 @@
 
 ### About
 
-This is a small personal project. Any comments and reactions would be awesome! Please check
+This is a small personal project. Any comments and reactions would be awesome! There is a twin app called [What2Do](https://github.com/ykaito21/whattodo_app), and please check
 [other projects](https://github.com/ykaito21/flutter_projects/blob/master/project_list.md) too.

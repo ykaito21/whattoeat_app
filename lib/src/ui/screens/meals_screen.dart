@@ -53,7 +53,7 @@ class MealsScreen extends StatelessWidget {
                 },
                 onSuccess: (context, List<Tag> tags) {
                   return SingleChildScrollView(
-                    padding: StyleList.verticalHorizontalPaddding1020,
+                    padding: StyleList.verticalHorizontalpadding1020,
                     scrollDirection: Axis.horizontal,
                     child: TagList(
                       tags: tags,

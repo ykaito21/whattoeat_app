@@ -39,7 +39,10 @@ class MealsScreenProvider {
   final BehaviorSubject<List<String>> _searchSubject =
       BehaviorSubject<List<String>>.seeded(<String>[]);
   // List<String> get searchedKeywords => _searchSubject.value;
-  Stream<List<String>> get streamSearchKeywords => _searchSubject.stream;
+  Stream<List<String>> get streamSearchKeywords => _searchSubject.stream
+      // TODO check here
+      .debounceTime(Duration(milliseconds: 300));
+  // .switchMap((item) async* =>  yield item);
 
   void searchInput(String input) {
     final List<String> keywords = input.split(' ');

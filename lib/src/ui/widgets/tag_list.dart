@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tags/tag.dart';
+import 'package:flutter_tags/flutter_tags.dart';
 import '../../app_localizations.dart';
 import '../../core/services/database_service.dart' as db;
 import '../global/style_list.dart';
 import '../shared/platform/platform_alert_dialog.dart';
 
 class TagList extends StatelessWidget {
+  //TODO CHECK delete
   final List<db.Tag> tags;
   final provider;
   final bool editable;

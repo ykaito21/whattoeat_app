@@ -45,7 +45,7 @@ class SlotScreen extends StatelessWidget {
                 },
                 onSuccess: (context, List<Tag> tags) {
                   return SingleChildScrollView(
-                    padding: StyleList.verticalHorizontalPaddding1020,
+                    padding: StyleList.verticalHorizontalpadding1020,
                     child: TagList(
                       tags: tags,
                       provider: slotScreenProvider,
@@ -74,7 +74,6 @@ class SlotScreen extends StatelessWidget {
 
   List<Widget> _appBarTitle(BuildContext context) {
     return <Widget>[
-      //todo need localize title or not
       Text(
         AppLocalizations.of(context).translate('appTitleFirst'),
         style: StyleList.appBarTitleStyle,

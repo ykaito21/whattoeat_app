@@ -85,6 +85,8 @@ class WriteMealScreen extends StatelessWidget {
                     child: BaseTextField(
                       textEditingController:
                           writeMealScreenProvider.nameController,
+                      onChanged: (String newVal) => writeMealScreenProvider
+                          .checkTextFieldUpdate(newVal, 'name'),
                       hintText:
                           AppLocalizations.of(context).translate('mealName'),
                       textStyle: TextStyle(
@@ -102,7 +104,7 @@ class WriteMealScreen extends StatelessWidget {
                       stream: appProvider.streamTags(),
                       onSuccess: (context, List<Tag> tags) {
                         return SingleChildScrollView(
-                          padding: StyleList.verticalHorizontalPaddding1020,
+                          padding: StyleList.verticalHorizontalpadding1020,
                           child: TagList(
                             tags: tags,
                             editable: true,
@@ -120,6 +122,8 @@ class WriteMealScreen extends StatelessWidget {
                       child: BaseTextField(
                         textEditingController:
                             writeMealScreenProvider.noteController,
+                        onChanged: (String newVal) => writeMealScreenProvider
+                            .checkTextFieldUpdate(newVal, 'note'),
                         hintText:
                             AppLocalizations.of(context).translate('note'),
                         textStyle: TextStyle(
