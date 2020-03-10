@@ -52,11 +52,11 @@ extension ContextExtensions on BuildContext {
   String localizeMessage(String content, String key) {
     switch (this.lang) {
       case 'en':
-        return '${this.translate(key)} "$content"';
+        return '"$content" ${this.translate(key)}';
       case 'ja':
         return '"$content"${this.translate(key)}';
       default:
-        return '${this.translate(key)} "$content"';
+        return '"$content" ${this.translate(key)}';
     }
   }
 

@@ -87,7 +87,7 @@ class TagList extends StatelessWidget {
             hintText: context.translate('newTag'),
             helperText: ' ',
             width: 80.0,
-            maxLength: 10,
+            maxLength: 20,
             textStyle: TextStyle(
               fontSize: 16.0,
             ),

@@ -25,22 +25,38 @@
   </div>
 </div> -->
 
+<div align="center">
+  <div style="align-items: center; display: flex; justify-content: center;">
+    <img src="pub_assets/gif/whattoeat.gif" width="200">
+  </div>
+</div>
+
 ---
 
 ## Screens
 
-<!-- <div align="center">
+<div align="center">
   <div style="align-items: center; display: flex; justify-content: space-evenly; padding-bottom: 15px;">
     <img src="pub_assets/screenshots/screenshot_1.png" width="200">
     <img src="pub_assets/screenshots/screenshot_2.png" width="200">
     <img src="pub_assets/screenshots/screenshot_3.png" width="200">
   </div>
-  <div style="align-items: center; display: flex; justify-content: space-evenly;">
+  <div style="align-items: center; display: flex; justify-content: space-evenly; padding-bottom: 15px;">
     <img src="pub_assets/screenshots/screenshot_4.png" width="200">
     <img src="pub_assets/screenshots/screenshot_5.png" width="200">
     <img src="pub_assets/screenshots/screenshot_6.png" width="200">
   </div>
-</div> -->
+  <div style="align-items: center; display: flex; justify-content: space-evenly; padding-bottom: 15px;">
+      <img src="pub_assets/screenshots/screenshot_7.png" width="200">
+      <img src="pub_assets/screenshots/screenshot_8.png" width="200">
+      <img src="pub_assets/screenshots/screenshot_9.png" width="200">
+    </div>
+  <div style="align-items: center; display: flex; justify-content: space-evenly; padding-bottom: 15px;">
+      <img src="pub_assets/screenshots/screenshot_10.png" width="200">
+      <img src="pub_assets/screenshots/screenshot_11.png" width="200">
+      <img src="pub_assets/screenshots/screenshot_12.png" width="200">
+    </div>
+</div>
 
 ## Main Features
 

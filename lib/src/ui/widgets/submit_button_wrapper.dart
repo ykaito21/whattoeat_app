@@ -18,7 +18,8 @@ class SubmitButtonWrapper extends StatelessWidget {
         ..removeCurrentSnackBar()
         ..showSnackBar(
           context.baseSnackBar(
-            context.localizeMessage(context.translate('meal'), 'wasSaved'),
+            context.localizeMessage(
+                writeMealScreenProvider.nameController.text, 'wasSaved'),
           ),
         );
       await Future.delayed(Duration(milliseconds: 1000), () => context.pop());

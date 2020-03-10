@@ -22,7 +22,7 @@ class MealTile extends StatelessWidget {
   String get mealName => mealWithTags.meal.name;
   List<Tag> get tags => mealWithTags.tags;
 
-  Future<bool> _onWillDismiss(context) {
+  Future<bool> _onWillDismiss(BuildContext context) {
     return PlatformAlertDialog(
       title: context.localizeAlertTtile(mealName, 'alertDeleteTitle'),
       content: context.translate('alertDeleteContentMeal'),
