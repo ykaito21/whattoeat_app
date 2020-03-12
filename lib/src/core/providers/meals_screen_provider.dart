@@ -39,11 +39,22 @@ class MealsScreenProvider {
       BehaviorSubject<List<String>>.seeded(<String>[]);
   // List<String> get searchedKeywords => _searchSubject.value;
   Stream<List<String>> get streamSearchKeywords => _searchSubject.stream;
+  //* could be this
+  // final BehaviorSubject<String> _searchSubject =
+  //     BehaviorSubject<String>.seeded('');
+  // Stream<List<String>> get streamSearchKeywords =>
+  //     _searchSubject.stream.map<List<String>>((event) {
+  //       final List<String> keywords = event.split(' ');
+  //       keywords.removeWhere((keyword) => keyword.isEmpty);
+  //       return keywords;
+  //     });
+  // Function get changeKeywords => _searchSubject.add;
 
   void searchInput(String input) {
     final List<String> keywords = input.split(' ');
     keywords.removeWhere((keyword) => keyword.isEmpty);
     _searchSubject.add(keywords);
+    print(keywords);
   }
 
   void clearKeywords() {
@@ -51,6 +62,7 @@ class MealsScreenProvider {
     Future.delayed(Duration(milliseconds: 50)).then(
       (_) {
         _searchController.clear();
+        // _searchSubject.add('');
         _searchSubject.add(<String>[]);
       },
     );

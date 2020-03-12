@@ -14,6 +14,7 @@ class SearchBar extends StatelessWidget {
         context.provider<MealsScreenProvider>();
     return TextField(
       onChanged: mealsScreenProvider.searchInput,
+      // onChanged: mealsScreenProvider.changeKeywords,
       controller: mealsScreenProvider.searchController,
       decoration: InputDecoration(
         contentPadding: StyleList.horizontalPadding20,
