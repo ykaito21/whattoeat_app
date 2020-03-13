@@ -32,6 +32,7 @@ class MealsScreenProvider {
       _mealsScreenTagSubject.stream;
 
   // For keywords
+  //* keywords search doesn't work well in japanese
   final TextEditingController _searchController = TextEditingController();
   TextEditingController get searchController => _searchController;
 

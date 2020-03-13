@@ -40,14 +40,21 @@ class TagList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //* can use state key
+    // final tagStatekey = GlobalObjectKey<TagsState>(context);
     return Tags(
+      // key: tagStatekey,
       itemCount: tags.length,
       textField: _tagsTextField(context),
       itemBuilder: (int index) {
         final db.Tag tag = tags[index];
         return ItemTags(
-          onPressed: (item) =>
-              provider.onPressedTag(item.customData, item.active),
+          onPressed: (item) {
+            // if using statekey
+            // final allItems = tagStatekey.currentState?.getAllItem;
+            // if (allItems != null) allItems.where((item) => item.active);
+            provider.onPressedTag(item.customData, item.active);
+          },
           key: UniqueKey(),
           index: index,
           title: tag.name,
