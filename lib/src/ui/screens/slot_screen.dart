@@ -5,6 +5,7 @@ import '../../core/services/database_service.dart';
 import '../global/routes/route_path.dart';
 import '../global/style_list.dart';
 import '../global/extensions.dart';
+import '../shared/platform/platform_alert_dialog.dart';
 import '../shared/widgets/base_button.dart';
 import '../shared/widgets/stream_wrapper.dart';
 import '../widgets/tag_list.dart';
@@ -13,9 +14,14 @@ import '../widgets/slot_display.dart';
 class SlotScreen extends StatelessWidget {
   const SlotScreen({Key key}) : super(key: key);
 
-  void _onPressedSpin(BuildContext context, AppProvider appProvider,
-      SlotScreenProvider slotScreenProvider) {
+  Future<void> _onPressedSpin(BuildContext context, AppProvider appProvider,
+      SlotScreenProvider slotScreenProvider) async {
     if (appProvider.mealWithTagsIsEmpty) {
+      await PlatformAlertDialog(
+        title: context.translate('addMeal'),
+        content: context.translate('addMealToSpin'),
+        defaultActionText: 'OK',
+      ).show(context);
       context.pushNamed(RoutePath.writeMealScreen,
           arguments: null, rootNavigator: true);
     } else {

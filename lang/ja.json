@@ -28,5 +28,7 @@
   "wasDeleted": "を削除しました。",
   "wasSaved": "を保存しました。",
   "alertDeleteContentMeal": "この献立を削除すると、献立はリストから削除されます。",
-  "meal": "献立"
+  "meal": "献立",
+  "addMeal": "献立の追加",
+  "addMealToSpin": "あなたの献立レパートリーを追加してください。"
 }

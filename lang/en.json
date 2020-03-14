@@ -28,5 +28,7 @@
   "wasDeleted": "was successfly deleted.",
   "wasSaved": "was successfully saved.",
   "alertDeleteContentMeal": "Deleting this meal will also delete its data from your list.",
-  "meal": "Meal"
+  "meal": "Meal",
+  "addMeal": "Add Meal",
+  "addMealToSpin": "Please add your meal repertoire."
 }

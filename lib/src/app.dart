@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'core/providers/app_provider.dart';
 import 'ui/global/app_theme.dart';
 import 'ui/global/routes/route_generator.dart';
 import 'app_localizations.dart';
+import 'app_providers.dart';
 
 // import 'ui/screens/home_screen.dart';
 
@@ -14,12 +14,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        Provider(
-          create: (_) => AppProvider(),
-          dispose: (_, appProvider) => appProvider.dispose,
-        ),
-      ],
+      providers: providers,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'What2Eat',

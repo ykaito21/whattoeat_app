@@ -79,8 +79,7 @@ class MealsScreen extends StatelessWidget {
                       padding: StyleList.removePadding,
                       itemCount: mealWithTagsList.length,
                       itemBuilder: (context, index) {
-                        final MealWithTags mealWithTags =
-                            mealWithTagsList[index];
+                        final mealWithTags = mealWithTagsList[index];
                         return MealTile(
                           mealWithTags: mealWithTags,
                         );
