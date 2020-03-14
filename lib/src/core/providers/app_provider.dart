@@ -4,17 +4,26 @@ import 'package:rxdart/rxdart.dart';
 import '../../core/services/database_service.dart';
 
 class AppProvider {
-  final AppDatabase _appDatabase = AppDatabase();
+  final _appDatabase = AppDatabase();
   AppDatabase get appDatabase => _appDatabase;
+  final mealWithTagsSubject =
+      BehaviorSubject<List<MealWithTags>>.seeded(<MealWithTags>[]);
+  bool get mealWithTagsIsEmpty => mealWithTagsSubject.value.isEmpty;
+  Stream<List<MealWithTags>> get allMealWithTags => mealWithTagsSubject.stream;
 
-  void dispose() {}
+  AppProvider() {
+    _appDatabase.streamAllMealWithTags().listen(mealWithTagsSubject.add);
+  }
+
+  void dispose() {
+    mealWithTagsSubject.close();
+  }
 
   Stream<List<MealWithTags>> streamMealWithTags({
     @required Stream<List<Tag>> tags,
     Stream<List<String>> keywords,
   }) {
-    final Stream<List<MealWithTags>> allMealWithTags =
-        _appDatabase.streamAllMealWithTags();
+    // final allMealWithTags = _appDatabase.streamAllMealWithTags();
     if (keywords == null) {
       return CombineLatestStream.combine2<List<MealWithTags>, List<Tag>,
           List<MealWithTags>>(
@@ -87,7 +96,7 @@ class AppProvider {
     return _appDatabase.tagDao.streamAllTags();
   }
 
-  deleteMealWithTags(MealWithTags mealWithTags) {
+  void deleteMealWithTags(MealWithTags mealWithTags) {
     _appDatabase.deleteMealWithTags(mealWithTags);
   }
 }

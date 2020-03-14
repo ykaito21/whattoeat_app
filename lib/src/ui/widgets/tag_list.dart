@@ -55,7 +55,7 @@ class TagList extends StatelessWidget {
             // if (allItems != null) allItems.where((item) => item.active);
             provider.onPressedTag(item.customData, item.active);
           },
-          key: UniqueKey(),
+          key: ValueKey(tag),
           index: index,
           title: tag.name,
           active: selectedTags.contains(tag) ? true : false,

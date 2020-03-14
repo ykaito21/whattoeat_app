@@ -8,9 +8,9 @@ class WriteMealScreenProvider {
   final MealWithTags currentMealWithTags;
   AppDatabase _appDatabase;
 
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _noteController = TextEditingController();
-  final FocusNode _nameFocusNode = FocusNode();
+  final _nameController = TextEditingController();
+  final _noteController = TextEditingController();
+  final _nameFocusNode = FocusNode();
   String _initialName = '';
   String _initialNote = '';
   List<Tag> _initialTags = [];
@@ -48,12 +48,9 @@ class WriteMealScreenProvider {
 
   bool get isNew => currentMealWithTags == null;
 
-  bool onPressdButton(BuildContext context, bool isUpdated) =>
-      isUpdated ? _updateMealWithTags() : _startEditing(context);
-
-  bool _updateMealWithTags() {
+  bool updateMealWithTags() {
     if (_nameController.text.length >= 1 && _nameController.text.length <= 50) {
-      final MealWithTags newMealWithTags = MealWithTags(
+      final newMealWithTags = MealWithTags(
         Meal(
           id: currentMealWithTags?.meal?.id,
           name: _nameController.text,
@@ -69,15 +66,10 @@ class WriteMealScreenProvider {
     return false;
   }
 
-  bool _startEditing(context) {
-    FocusScope.of(context).requestFocus(_nameFocusNode);
-    return false;
-  }
-
 // For tag
   void onSubmitTag(String tagName) {
     if (tagName.length >= 1 && tagName.length <= 10) {
-      final TagsCompanion tag = TagsCompanion(
+      final tag = TagsCompanion(
         name: Value(tagName),
       );
       _appDatabase.tagDao.insertTag(tag);
@@ -93,12 +85,10 @@ class WriteMealScreenProvider {
     _writeMealScreenTagSubject.add(_selectedTags);
   }
 
-  final BehaviorSubject<List<Tag>> _writeMealScreenTagSubject =
-      BehaviorSubject<List<Tag>>.seeded(<Tag>[]);
+  final _writeMealScreenTagSubject = BehaviorSubject<List<Tag>>.seeded(<Tag>[]);
 
   // For button
-  final BehaviorSubject<bool> _checkUpdateSubject =
-      BehaviorSubject<bool>.seeded(false);
+  final _checkUpdateSubject = BehaviorSubject<bool>.seeded(false);
   Stream<bool> get isUpdated => _checkUpdateSubject.stream;
 
   // check equallity of the lists

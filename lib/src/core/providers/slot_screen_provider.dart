@@ -18,10 +18,9 @@ class SlotScreenProvider {
   }
 
 // FOR SLOT
-  final FixedExtentScrollController _slotScrollController =
-      FixedExtentScrollController();
-  final Random random = Random();
+  final _slotScrollController = FixedExtentScrollController();
   FixedExtentScrollController get slotScrollController => _slotScrollController;
+  final random = Random();
 
   void slotStart() {
     _slotScrollController.animateToItem(
@@ -40,8 +39,7 @@ class SlotScreenProvider {
     _slotScreenTagSubject.add(_selectedTags);
   }
 
-  final BehaviorSubject<List<Tag>> _slotScreenTagSubject =
-      BehaviorSubject<List<Tag>>.seeded(<Tag>[]);
+  final _slotScreenTagSubject = BehaviorSubject<List<Tag>>.seeded(<Tag>[]);
   Stream<List<Tag>> get streamSlotScreenSelectedTags =>
       _slotScreenTagSubject.stream;
 }

@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import '../global/extensions.dart';
 import '../../core/providers/slot_screen_provider.dart';
 import '../../core/services/database_service.dart';
+import '../global/extensions.dart';
 
 class SlotList extends StatelessWidget {
   final List<MealWithTags> mealWithTagsList;

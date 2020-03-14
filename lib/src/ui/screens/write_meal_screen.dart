@@ -18,7 +18,7 @@ class WriteMealScreen extends StatelessWidget {
     AppProvider appProvider,
     MealWithTags currentMealWithTags,
   ) async {
-    final String mealName = currentMealWithTags.meal.name;
+    final mealName = currentMealWithTags.meal.name;
     final confirmation = await PlatformAlertDialog(
       title: context.localizeAlertTtile(mealName, 'alertDeleteTitle'),
       content: context.translate('alertDeleteContentMeal'),
@@ -42,10 +42,10 @@ class WriteMealScreen extends StatelessWidget {
     final writeMealScreenProvider = context.provider<WriteMealScreenProvider>();
     final currentMealWithTags = writeMealScreenProvider.currentMealWithTags;
     // kToolbarHeight
-    final double appBarHeight = 56.0;
+    final appBarHeight = 56.0;
     // _kTabBarHeight
     // final double bottomNavHeight = 50.0;
-    final double wrapperHeight = context.height -
+    final wrapperHeight = context.height -
         (context.topPadding + context.bottomPadding + appBarHeight);
     final isNew = writeMealScreenProvider.isNew;
     return Scaffold(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/providers/slot_screen_provider.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
+import '../global/routes/route_path.dart';
 import '../global/style_list.dart';
 import '../global/extensions.dart';
 import '../shared/widgets/base_button.dart';
@@ -11,6 +12,16 @@ import '../widgets/slot_display.dart';
 
 class SlotScreen extends StatelessWidget {
   const SlotScreen({Key key}) : super(key: key);
+
+  void _onPressedSpin(BuildContext context, AppProvider appProvider,
+      SlotScreenProvider slotScreenProvider) {
+    if (appProvider.mealWithTagsIsEmpty) {
+      context.pushNamed(RoutePath.writeMealScreen,
+          arguments: null, rootNavigator: true);
+    } else {
+      slotScreenProvider.slotStart();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +69,8 @@ class SlotScreen extends StatelessWidget {
                 width: double.infinity,
                 padding: StyleList.horizontalPadding20,
                 child: BaseButton(
-                  onPressed: slotScreenProvider.slotStart,
+                  onPressed: () =>
+                      _onPressedSpin(context, appProvider, slotScreenProvider),
                   text: context.translate('spin'),
                 ),
               ),

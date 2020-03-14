@@ -26,33 +26,30 @@ class MealsScreenProvider {
     _mealsScreenTagSubject.add(_selectedTags);
   }
 
-  final BehaviorSubject<List<Tag>> _mealsScreenTagSubject =
-      BehaviorSubject<List<Tag>>.seeded(<Tag>[]);
+  final _mealsScreenTagSubject = BehaviorSubject<List<Tag>>.seeded(<Tag>[]);
   Stream<List<Tag>> get streamMealsScreenSelectedTags =>
       _mealsScreenTagSubject.stream;
 
   // For keywords
   //* keywords search doesn't work well in japanese
-  final TextEditingController _searchController = TextEditingController();
+  final _searchController = TextEditingController();
   TextEditingController get searchController => _searchController;
 
-  final BehaviorSubject<List<String>> _searchSubject =
-      BehaviorSubject<List<String>>.seeded(<String>[]);
+  final _searchSubject = BehaviorSubject<List<String>>.seeded(<String>[]);
   // List<String> get searchedKeywords => _searchSubject.value;
   Stream<List<String>> get streamSearchKeywords => _searchSubject.stream;
   //* could be this
-  // final BehaviorSubject<String> _searchSubject =
-  //     BehaviorSubject<String>.seeded('');
+  // final _searchSubject = BehaviorSubject<String>.seeded('');
   // Stream<List<String>> get streamSearchKeywords =>
   //     _searchSubject.stream.map<List<String>>((event) {
-  //       final List<String> keywords = event.split(' ');
+  //       final keywords = event.split(' ');
   //       keywords.removeWhere((keyword) => keyword.isEmpty);
   //       return keywords;
   //     });
   // Function get changeKeywords => _searchSubject.add;
 
   void searchInput(String input) {
-    final List<String> keywords = input.split(' ');
+    final keywords = input.split(' ');
     keywords.removeWhere((keyword) => keyword.isEmpty);
     _searchSubject.add(keywords);
     print(keywords);

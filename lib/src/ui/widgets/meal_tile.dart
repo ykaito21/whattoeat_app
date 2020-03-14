@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
-import '../../app_localizations.dart';
 import '../../core/providers/app_provider.dart';
 import '../../core/services/database_service.dart';
 import '../global/routes/route_path.dart';
 import '../global/style_list.dart';
 import '../global/extensions.dart';
-
 import '../shared/platform/platform_alert_dialog.dart';
 
 class MealTile extends StatelessWidget {
@@ -31,8 +28,8 @@ class MealTile extends StatelessWidget {
     ).show(context);
   }
 
-  void _onDismissed(BuildContext context, AppProvider appProvider) async {
-    await appProvider.deleteMealWithTags(mealWithTags);
+  void _onDismissed(BuildContext context, AppProvider appProvider) {
+    appProvider.deleteMealWithTags(mealWithTags);
     Scaffold.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(

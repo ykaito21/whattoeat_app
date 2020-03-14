@@ -37,8 +37,8 @@ class MealWithTags {
 
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
-    final Directory dbFolder = await getApplicationDocumentsDirectory();
-    final File file = File(p.join(dbFolder.path, 'db.sqlite'));
+    final dbFolder = await getApplicationDocumentsDirectory();
+    final file = File(p.join(dbFolder.path, 'db.sqlite'));
     return VmDatabase(file);
   });
 }
@@ -56,11 +56,11 @@ class AppDatabase extends _$AppDatabase {
   int get schemaVersion => 1;
 
   Stream<List<MealWithTags>> streamAllMealWithTags() {
-    final Stream<List<Meal>> mealStream = select(meals).watch();
+    final mealStream = select(meals).watch();
     return mealStream.switchMap(
       (meals) {
-        final Map<int, Meal> idToMeal = {for (var meal in meals) meal.id: meal};
-        final Iterable<int> ids = idToMeal.keys;
+        final idToMeal = {for (var meal in meals) meal.id: meal};
+        final ids = idToMeal.keys;
 
         final entryQuery = select(taggings).join(
           [
@@ -76,8 +76,8 @@ class AppDatabase extends _$AppDatabase {
             final idToTags = <int, List<Tag>>{};
 
             for (var row in rows) {
-              final Tag tag = row.readTable(tags);
-              final int id = row.readTable(taggings).mealId;
+              final tag = row.readTable(tags);
+              final id = row.readTable(taggings).mealId;
 
               idToTags.putIfAbsent(id, () => []).add(tag);
             }
@@ -95,8 +95,8 @@ class AppDatabase extends _$AppDatabase {
   void insertMealWithTags(MealWithTags mealWithTags) {
     transaction(
       () async {
-        final Insertable<Meal> meal = mealWithTags.meal;
-        final int mealId = await into(meals).insert(meal, orReplace: true);
+        final meal = mealWithTags.meal;
+        final mealId = await into(meals).insert(meal, orReplace: true);
 
         // deltet all previous taggings
         await (delete(taggings)
@@ -121,7 +121,7 @@ class AppDatabase extends _$AppDatabase {
   void deleteMealWithTags(MealWithTags mealWithTags) {
     transaction(
       () async {
-        final Meal meal = mealWithTags.meal;
+        final meal = mealWithTags.meal;
         await delete(meals).delete(meal);
         // deltet all taggings
         await (delete(taggings)
