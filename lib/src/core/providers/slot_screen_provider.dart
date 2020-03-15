@@ -22,9 +22,10 @@ class SlotScreenProvider {
   FixedExtentScrollController get slotScrollController => _slotScrollController;
   final random = Random();
 
-  void slotStart() {
+  void slotStart(int length) {
     _slotScrollController.animateToItem(
-      _slotScrollController.selectedItem + ((30) + random.nextInt(30)),
+      _slotScrollController.selectedItem +
+          ((length + 30) + random.nextInt(length)),
       duration: Duration(seconds: 3),
       curve: Curves.ease,
     );

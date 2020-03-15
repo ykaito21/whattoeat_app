@@ -9,6 +9,7 @@ class AppProvider {
   final mealWithTagsSubject =
       BehaviorSubject<List<MealWithTags>>.seeded(<MealWithTags>[]);
   bool get mealWithTagsIsEmpty => mealWithTagsSubject.value.isEmpty;
+  int get numberOfMealWithTags => mealWithTagsSubject.value.length;
   Stream<List<MealWithTags>> get allMealWithTags => mealWithTagsSubject.stream;
 
   AppProvider() {

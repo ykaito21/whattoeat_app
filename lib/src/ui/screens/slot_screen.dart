@@ -25,7 +25,7 @@ class SlotScreen extends StatelessWidget {
       context.pushNamed(RoutePath.writeMealScreen,
           arguments: null, rootNavigator: true);
     } else {
-      slotScreenProvider.slotStart();
+      slotScreenProvider.slotStart(appProvider.numberOfMealWithTags);
     }
   }
 
