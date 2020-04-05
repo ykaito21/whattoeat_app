@@ -49,7 +49,7 @@ class MealsScreenProvider {
   // Function get changeKeywords => _searchSubject.add;
 
   void searchInput(String input) {
-    final keywords = input.split(' ');
+    final keywords = input.split(RegExp('\\s+'));
     keywords.removeWhere((keyword) => keyword.isEmpty);
     _searchSubject.add(keywords);
     print(keywords);

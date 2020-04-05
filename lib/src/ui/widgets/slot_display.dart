@@ -55,9 +55,8 @@ class SlotDisplay extends StatelessWidget {
             stream: appProvider.streamMealWithTags(
               tags: slotScreenProvider.streamSlotScreenSelectedTags,
             ),
-            onWaitting: (BuildContext context) => Container(),
-            onSuccess:
-                (BuildContext context, List<MealWithTags> mealWithTagsList) {
+            onWaitting: (context) => Container(),
+            onSuccess: (context, mealWithTagsList) {
               return SlotList(
                 mealWithTagsList: mealWithTagsList,
               );

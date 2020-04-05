@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
             tabBar: CupertinoTabBar(
               border: Border(
                 top: BorderSide(
-                  color: context.primaryColor,
+                  color: context.scaffoldBackgroundColor,
                   width: 0.0, // One physical pixel.
                   style: BorderStyle.solid,
                 ),

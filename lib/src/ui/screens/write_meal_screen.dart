@@ -51,7 +51,7 @@ class WriteMealScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          isNew ? context.translate('newMeal') : context.translate('editMeal'),
+          context.translateWithCondition(isNew, 'newMeal', 'editMeal'),
           style: StyleList.appBarTitleStyle,
         ),
       ),
@@ -88,7 +88,7 @@ class WriteMealScreen extends StatelessWidget {
                     height: 150.0,
                     child: StreamWrapper<List<Tag>>(
                       stream: appProvider.streamTags(),
-                      onSuccess: (BuildContext context, List<Tag> tags) {
+                      onSuccess: (context, tags) {
                         return SingleChildScrollView(
                           padding: StyleList.verticalHorizontalpadding1020,
                           child: TagList(

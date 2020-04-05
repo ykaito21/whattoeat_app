@@ -65,11 +65,8 @@ class MealsScreen extends StatelessWidget {
                     keywords: mealsScreenProvider.streamSearchKeywords,
                     tags: mealsScreenProvider.streamMealsScreenSelectedTags,
                   ),
-                  onWaitting: (BuildContext context) {
-                    return Container();
-                  },
-                  onSuccess: (BuildContext context,
-                      List<MealWithTags> mealWithTagsList) {
+                  onWaitting: (context) => Container(),
+                  onSuccess: (context, mealWithTagsList) {
                     if (mealWithTagsList.isEmpty)
                       return Center(
                         child: Text(context.translate('noMeal'),

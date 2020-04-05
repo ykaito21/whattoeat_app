@@ -42,9 +42,7 @@ class SubmitButtonWrapper extends StatelessWidget {
                   context, snapshot.data, writeMealScreenProvider),
           text: !snapshot.hasData
               ? context.translate('edit')
-              : snapshot.data
-                  ? context.translate('save')
-                  : context.translate('edit'),
+              : context.translateWithCondition(snapshot.data, 'save', 'edit'),
         );
       },
     );

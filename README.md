@@ -10,21 +10,14 @@
   </p>
 </div>
 
-<!-- <div style="align-items: center; display: flex; justify-content: center;">
+<div style="align-items: center; display: flex; justify-content: center;">
   <div style="width:200px;">
-    <a href="" target="_blank"><img  src="pub_assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"  style="padding:6%;width:88%; box-sizing: border-box;"></img></a>
+    <a href="https://apps.apple.com/us/app/what2eat-spin-your-slot/id1502213961" target="_blank"><img  src="pub_assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"  style="padding:6%;width:88%; box-sizing: border-box;"></img></a>
   </div>
   <div class="" style="width:200px;">
-    <a href="" target="_blank"><img  src="pub_assets/google-play-badge.png"</img></a>
+    <a href="https://play.google.com/store/apps/details?id=com.caeruto.whattoeat_app" target="_blank"><img  src="pub_assets/google-play-badge.png"</img></a>
   </div>
-</div> -->
-<!--
-<div align="center">
-  <div style="align-items: center; display: flex; justify-content: center;">
-    <img src="pub_assets/screenshots/whattoeat.gif" width="200">
-  </div>
-</div> -->
-
+</div>
 <div align="center">
   <div style="align-items: center; display: flex; justify-content: center;">
     <img src="pub_assets/gif/whattoeat.gif" width="200">
